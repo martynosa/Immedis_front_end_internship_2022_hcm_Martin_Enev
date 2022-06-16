@@ -7,7 +7,15 @@ const Register = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    console.log(formData.get('email'));
+
+    const user = {
+      email: formData.get('email'),
+      fullName: formData.get('fullName'),
+      password: formData.get('password'),
+      rePassword: formData.get('rePassword'),
+      role: formData.get('role'),
+    };
+    console.log(user);
   };
 
   return (
@@ -17,11 +25,18 @@ const Register = () => {
           <label htmlFor="email" className="form-label">
             Email
           </label>
+          <input type="text" className="form-control" id="email" name="email" />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="fullName" className="form-label">
+            Full name
+          </label>
           <input
-            type="email"
+            type="text"
             className="form-control"
-            id="email"
-            name="email"
+            id="fullName"
+            name="fullName"
           />
         </div>
 
@@ -50,10 +65,10 @@ const Register = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="type" className="form-label">
-            Type
+          <label htmlFor="role" className="form-label">
+            Role
           </label>
-          <select id="type" className="form-select" name="type">
+          <select id="role" className="form-select" name="role">
             <option value="Employee">Employee</option>
             <option value="HR">HR</option>
           </select>
@@ -69,11 +84,11 @@ const Register = () => {
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-arrow-left-circle"
+                className="bi bi-arrow-left-circle"
                 viewBox="0 0 16 16"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
                 />
               </svg>
