@@ -4,13 +4,18 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './Components/Home';
 import Login from './Components/Auth/Login';
 import Register from './Components/Auth/Register';
+import Landing from './Components/Landing';
+import Profile from './Components/Profile';
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Landing />} />
+      <Route path="/landing" element={<Landing />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 }

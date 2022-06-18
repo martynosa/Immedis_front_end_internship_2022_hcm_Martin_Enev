@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { register } from '../../services/authServices';
 
 import Styles from './Register.module.css';
 
@@ -33,7 +34,7 @@ const Register = () => {
     setRePasswordErr(passToCompare !== rePassword);
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const user = {
@@ -72,7 +73,9 @@ const Register = () => {
       return console.log(errorMessage.join(', ') + '!');
     }
 
-    console.log('posted');
+    console.log(user);
+    const registeredUser = await register(user);
+    console.log(registeredUser);
   };
 
   return (
@@ -85,7 +88,9 @@ const Register = () => {
           <input
             type="text"
             className={
-              emailErr ? `${Styles.error} form-control` : 'form-control'
+              emailErr
+                ? `${Styles.error} ${Styles.inputs} form-control`
+                : `${Styles.inputs} form-control`
             }
             id="email"
             name="email"
@@ -100,7 +105,9 @@ const Register = () => {
           <input
             type="text"
             className={
-              fullNameErr ? `${Styles.error} form-control` : 'form-control'
+              fullNameErr
+                ? `${Styles.error} ${Styles.inputs} form-control`
+                : `${Styles.inputs} form-control`
             }
             id="fullName"
             name="fullName"
@@ -115,7 +122,9 @@ const Register = () => {
           <input
             type="password"
             className={
-              passwordErr ? `${Styles.error} form-control` : 'form-control'
+              passwordErr
+                ? `${Styles.error} ${Styles.inputs} form-control`
+                : `${Styles.inputs} form-control`
             }
             id="password"
             name="password"
@@ -130,7 +139,9 @@ const Register = () => {
           <input
             type="password"
             className={
-              rePasswordErr ? `${Styles.error} form-control` : 'form-control'
+              rePasswordErr
+                ? `${Styles.error} ${Styles.inputs} form-control`
+                : `${Styles.inputs} form-control`
             }
             id="rePassword"
             name="rePassword"
@@ -142,17 +153,21 @@ const Register = () => {
           <label htmlFor="role" className="form-label">
             Role
           </label>
-          <select id="role" className="form-select" name="role">
-            <option value="Employee">Employee</option>
-            <option value="HR">HR</option>
+          <select
+            id="role"
+            className={`${Styles.inputs} form-select`}
+            name="role"
+          >
+            <option value="employee">Employee</option>
+            <option value="hr">HR</option>
           </select>
         </div>
 
         <div className="mt-5">
           <p>
-            Already registered?{' '}
+            Already registered?&nbsp;
             <Link to="/login" className={Styles.link}>
-              Login{' '}
+              Login&nbsp;
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"

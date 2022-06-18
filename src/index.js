@@ -5,13 +5,16 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import Navbar from './Components/Common/Navbar';
+import { AuthProvider } from './AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Navbar />
-      <App />
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Navbar />
+        <App />
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>
 );

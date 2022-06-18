@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Styles from './Login.module.css';
+import { login } from '../../services/authServices';
 
 const Login = () => {
   const [emailErr, setEmailErr] = useState(false);
@@ -18,7 +19,7 @@ const Login = () => {
     setPasswordErr(password.length === 0);
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
@@ -40,10 +41,11 @@ const Login = () => {
     }
 
     if (errorMessage.length !== 0) {
-      return console.log(errorMessage.join(', ' + '!'));
+      return console.log(errorMessage.join(', ') + '!');
     }
 
-    console.log('posted');
+    const loggedUser = await login(user);
+    console.log(loggedUser);
   };
 
   return (
@@ -56,7 +58,9 @@ const Login = () => {
           <input
             type="text"
             className={
-              emailErr ? `${Styles.error} form-control` : 'form-control'
+              emailErr
+                ? `${Styles.error} ${Styles.inputs} form-control`
+                : `${Styles.inputs} form-control`
             }
             id="email"
             name="email"
@@ -71,7 +75,9 @@ const Login = () => {
           <input
             type="password"
             className={
-              passwordErr ? `${Styles.error} form-control` : 'form-control'
+              passwordErr
+                ? `${Styles.error} ${Styles.inputs} form-control`
+                : `${Styles.inputs} form-control`
             }
             id="password"
             name="password"
@@ -81,9 +87,9 @@ const Login = () => {
 
         <div className="mb-3">
           <p>
-            Don't have an account?{' '}
+            Don't have an account?&nbsp;
             <Link to="/register" className={Styles.link}>
-              Register{' '}
+              Register&nbsp;
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -101,7 +107,7 @@ const Login = () => {
           </p>
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className={`${Styles.btn} btn btn-primary`}>
           Login
         </button>
       </form>
