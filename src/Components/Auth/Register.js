@@ -94,7 +94,7 @@ const Register = () => {
             }
             id="email"
             name="email"
-            onChange={emailValidator}
+            onBlur={emailValidator}
           />
         </div>
 
@@ -111,7 +111,7 @@ const Register = () => {
             }
             id="fullName"
             name="fullName"
-            onChange={fullNameValidator}
+            onBlur={fullNameValidator}
           />
         </div>
 
@@ -128,7 +128,7 @@ const Register = () => {
             }
             id="password"
             name="password"
-            onChange={passwordValidator}
+            onBlur={passwordValidator}
           />
         </div>
 
@@ -145,7 +145,7 @@ const Register = () => {
             }
             id="rePassword"
             name="rePassword"
-            onChange={rePasswordValidator}
+            onBlur={rePasswordValidator}
           />
         </div>
 

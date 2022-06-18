@@ -99,7 +99,7 @@ const Login = () => {
             }
             id="email"
             name="email"
-            onChange={emailValidator}
+            onBlur={emailValidator}
           />
         </div>
 
@@ -116,7 +116,7 @@ const Login = () => {
             }
             id="password"
             name="password"
-            onChange={passwordValidator}
+            onBlur={passwordValidator}
           />
         </div>
 
