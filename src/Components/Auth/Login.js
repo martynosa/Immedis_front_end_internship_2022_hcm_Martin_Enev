@@ -64,7 +64,7 @@ const Login = () => {
     }
 
     if (errorMessage.length !== 0) {
-      openNotification('fail', errorMessage.join('') + '!');
+      openNotification('fail', errorMessage.join(', ') + '!');
       return;
     }
 
