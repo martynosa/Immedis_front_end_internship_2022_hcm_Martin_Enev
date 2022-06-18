@@ -1,35 +1,25 @@
 import React from 'react';
-import { useState } from 'react';
 
 import Styles from './Notification.module.css';
 
-const Notification = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const Notification = ({ status, message, closeHandler }) => {
+  let classes = '';
 
-  const open = () => {
-    setIsOpen(true);
+  if (status === 'success') {
+    classes = `${Styles.notification} ${Styles.success}`;
+  }
 
-    setTimeout(() => setIsOpen(false), 1000);
-  };
+  if (status === 'fail') {
+    classes = `${Styles.notification} ${Styles.fail}`;
+  }
 
-  const closeBtn = () => {
-    setIsOpen(false);
-  };
-
-  const notify = (
-    <div className={Styles.notification}>
-      <div>Invalid email or password</div>
-      <div className={Styles.closeBtn} onClick={closeBtn}>
+  return (
+    <div className={classes}>
+      <div>{message}</div>
+      <div className={Styles.closeBtn} onClick={closeHandler}>
         &times;
       </div>
     </div>
-  );
-
-  return (
-    <>
-      <button onClick={open}>error</button>
-      {isOpen && notify}
-    </>
   );
 };
 

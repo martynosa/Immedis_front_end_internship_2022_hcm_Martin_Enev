@@ -1,14 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Styles from './Login.module.css';
 import { login } from '../../services/authServices';
 
+// notification
+import Notification from '../Common/Notification';
+
 const Login = () => {
   const [emailErr, setEmailErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
 
+  // notification
+  const [notificationSettings, setNotificationSettings] = useState({
+    state: false,
+    status: 'fail',
+    message: '',
+  });
+
+  const openNotification = (status, message) => {
+    setNotificationSettings({ state: true, status, message });
+    setTimeout(() => {
+      setNotificationSettings({ state: false, status, message });
+    }, 2000);
+  };
+
+  const closeNotification = () => {
+    setNotificationSettings({ state: false, status: 'fail', message: '' });
+  };
+
+  // validation
   const emailValidator = (e) => {
     const email = e.target.value.trim();
     setEmailErr(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email));
@@ -19,6 +41,7 @@ const Login = () => {
     setPasswordErr(password.length === 0);
   };
 
+  // submit
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -41,15 +64,27 @@ const Login = () => {
     }
 
     if (errorMessage.length !== 0) {
-      return console.log(errorMessage.join(', ') + '!');
+      openNotification('fail', errorMessage.join('') + '!');
+      return;
     }
 
-    const loggedUser = await login(user);
-    console.log(loggedUser);
+    try {
+      const loggedUser = await login(user);
+      openNotification('success', `Welcome ${loggedUser.fullName}`);
+    } catch (error) {
+      openNotification('fail', error);
+    }
   };
 
   return (
     <section className={Styles.container}>
+      {notificationSettings.state && (
+        <Notification
+          status={notificationSettings.status}
+          message={notificationSettings.message}
+          closeHandler={closeNotification}
+        />
+      )}
       <form className={Styles.form} onSubmit={submitHandler}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
