@@ -1,21 +1,78 @@
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Styles from './Register.module.css';
 
 const Register = () => {
+  const [emailErr, setEmailErr] = useState(false);
+  const [fullNameErr, setFullNameErr] = useState(false);
+  const [passwordErr, setPasswordErr] = useState(false);
+  const [rePasswordErr, setRePasswordErr] = useState(false);
+
+  const [passToCompare, setPassToCompare] = useState('');
+
+  const emailValidator = (e) => {
+    const email = e.target.value.trim();
+    setEmailErr(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email));
+  };
+
+  const fullNameValidator = (e) => {
+    const fullName = e.target.value.trim();
+    setFullNameErr(fullName.length === 0);
+  };
+
+  const passwordValidator = (e) => {
+    const password = e.target.value.trim();
+    setPassToCompare(password);
+    setPasswordErr(password.length < 6);
+  };
+
+  const rePasswordValidator = (e) => {
+    const rePassword = e.target.value.trim();
+    setRePasswordErr(passToCompare !== rePassword);
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-
     const user = {
-      email: formData.get('email'),
-      fullName: formData.get('fullName'),
-      password: formData.get('password'),
-      rePassword: formData.get('rePassword'),
+      email: formData.get('email').trim(),
+      fullName: formData.get('fullName').trim(),
+      password: formData.get('password').trim(),
+      rePassword: formData.get('rePassword').trim(),
       role: formData.get('role'),
     };
-    console.log(user);
+
+    let errorMessage = [];
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(user.email)) {
+      setEmailErr(true);
+      errorMessage.push('Email is required');
+    }
+
+    if (user.fullName.length === 0) {
+      setFullNameErr(true);
+      errorMessage.push('Full name is required');
+    }
+
+    if (user.password.length < 6) {
+      errorMessage.push('Password must be at least 6 characters');
+      setPasswordErr(true);
+    }
+
+    if (
+      user.password !== user.rePassword ||
+      passToCompare.trim().length === 0
+    ) {
+      errorMessage.push('Repeat password must be identical to the password');
+      setRePasswordErr(true);
+    }
+
+    if (errorMessage.length !== 0) {
+      return console.log(errorMessage.join(', ') + '!');
+    }
+
+    console.log('posted');
   };
 
   return (
@@ -25,7 +82,15 @@ const Register = () => {
           <label htmlFor="email" className="form-label">
             Email
           </label>
-          <input type="text" className="form-control" id="email" name="email" />
+          <input
+            type="text"
+            className={
+              emailErr ? `${Styles.error} form-control` : 'form-control'
+            }
+            id="email"
+            name="email"
+            onChange={emailValidator}
+          />
         </div>
 
         <div className="mb-3">
@@ -34,9 +99,12 @@ const Register = () => {
           </label>
           <input
             type="text"
-            className="form-control"
+            className={
+              fullNameErr ? `${Styles.error} form-control` : 'form-control'
+            }
             id="fullName"
             name="fullName"
+            onChange={fullNameValidator}
           />
         </div>
 
@@ -46,9 +114,12 @@ const Register = () => {
           </label>
           <input
             type="password"
-            className="form-control"
+            className={
+              passwordErr ? `${Styles.error} form-control` : 'form-control'
+            }
             id="password"
             name="password"
+            onChange={passwordValidator}
           />
         </div>
 
@@ -58,9 +129,12 @@ const Register = () => {
           </label>
           <input
             type="password"
-            className="form-control"
+            className={
+              rePasswordErr ? `${Styles.error} form-control` : 'form-control'
+            }
             id="rePassword"
             name="rePassword"
+            onChange={rePasswordValidator}
           />
         </div>
 

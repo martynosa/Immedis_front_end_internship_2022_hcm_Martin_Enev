@@ -1,17 +1,49 @@
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Styles from './Login.module.css';
 
 const Login = () => {
+  const [emailErr, setEmailErr] = useState(false);
+  const [passwordErr, setPasswordErr] = useState(false);
+
+  const emailValidator = (e) => {
+    const email = e.target.value.trim();
+    setEmailErr(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email));
+  };
+
+  const passwordValidator = (e) => {
+    const password = e.target.value.trim();
+    setPasswordErr(password.length === 0);
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
+
     const formData = new FormData(e.target);
     const user = {
-      email: formData.get('email'),
-      password: formData.get('password'),
+      email: formData.get('email').trim(),
+      password: formData.get('password').trim(),
     };
-    console.log(user);
+
+    let errorMessage = [];
+
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(user.email)) {
+      setEmailErr(true);
+      errorMessage.push('Email is required');
+    }
+
+    if (user.password.length === 0) {
+      setPasswordErr(true);
+      errorMessage.push('Password is required');
+    }
+
+    if (errorMessage.length !== 0) {
+      return console.log(errorMessage.join(', ' + '!'));
+    }
+
+    console.log('posted');
   };
 
   return (
@@ -21,7 +53,15 @@ const Login = () => {
           <label htmlFor="email" className="form-label">
             Email
           </label>
-          <input type="text" className="form-control" id="email" name="email" />
+          <input
+            type="text"
+            className={
+              emailErr ? `${Styles.error} form-control` : 'form-control'
+            }
+            id="email"
+            name="email"
+            onChange={emailValidator}
+          />
         </div>
 
         <div className="mb-3">
@@ -30,9 +70,12 @@ const Login = () => {
           </label>
           <input
             type="password"
-            className="form-control"
+            className={
+              passwordErr ? `${Styles.error} form-control` : 'form-control'
+            }
             id="password"
             name="password"
+            onChange={passwordValidator}
           />
         </div>
 
