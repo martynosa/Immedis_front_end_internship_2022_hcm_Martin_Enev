@@ -1,0 +1,9 @@
+.table {
+  vertical-align: middle;
+}
+
+.photo {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+}

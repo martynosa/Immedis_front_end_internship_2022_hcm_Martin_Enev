@@ -106,7 +106,7 @@ const Register = () => {
   };
 
   return (
-    <section className={Styles.container}>
+    <>
       {notificationSettings.state && (
         <Notification
           status={notificationSettings.status}
@@ -217,7 +217,7 @@ const Register = () => {
           Register
         </button>
       </form>
-    </section>
+    </>
   );
 };
 

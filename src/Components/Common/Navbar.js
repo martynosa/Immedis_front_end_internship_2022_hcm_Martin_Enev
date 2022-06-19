@@ -29,8 +29,9 @@ const Navbar = () => {
     try {
       setUser({});
       localStorage.clear();
-    } catch (error) {
       openNotification('success', 'Logout successful.');
+    } catch (error) {
+      openNotification({ status: 'fail', message: error });
     }
   };
 
@@ -81,28 +82,36 @@ const Navbar = () => {
   );
 
   return (
-    <nav className={`${Styles.myNav} navbar navbar-expand-lg`}>
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/landing">
-          HRM
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          {isAuth && userBtns}
-          {!isAuth && guestBtns}
+    <>
+      <nav className={`${Styles.myNav} navbar navbar-expand-lg`}>
+        <div className="container-fluid">
+          <Link className="navbar-brand" to="/landing">
+            HRM
+          </Link>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            {isAuth && userBtns}
+            {!isAuth && guestBtns}
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+      {notificationSettings.state && (
+        <Notification
+          status={notificationSettings.status}
+          message={notificationSettings.message}
+        />
+      )}
+    </>
   );
 };
 

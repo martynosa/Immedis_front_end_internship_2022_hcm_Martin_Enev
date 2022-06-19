@@ -1,8 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
+import Styles from '../Components/Employees.module.css';
 import { useAuth } from '../AuthContext';
 import { getEmployees } from '../services/employeesServices';
+import PageTitle from './Common/PageTitle';
+import EmployeesTable from './Common/EmployeesTable';
 
 const Employees = () => {
   const { user } = useAuth();
@@ -27,29 +30,10 @@ const Employees = () => {
 
   return (
     <>
-      <h1 className="display-1 text-center">Employees</h1>
-      <table className="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Photo</th>
-            <th scope="col">Full name</th>
-            <th scope="col">Department</th>
-            <th scope="col">Job Title</th>
-          </tr>
-        </thead>
-        <tbody>
-          {employees.map((empl) => {
-            return (
-              <tr key={empl._id}>
-                <th scope="row">{empl.photo}</th>
-                <td>{empl.fullName}</td>
-                <td>{empl.department}</td>
-                <td>{empl.jobTitle}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className={Styles.container}>
+        <PageTitle title={'Employees'} />
+        <EmployeesTable employees={employees} />
+      </div>
     </>
   );
 };

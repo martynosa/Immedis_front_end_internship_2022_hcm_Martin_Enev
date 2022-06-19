@@ -78,7 +78,7 @@ const Login = () => {
   };
 
   return (
-    <section className={Styles.container}>
+    <>
       {notificationSettings.state && (
         <Notification
           status={notificationSettings.status}
@@ -135,7 +135,7 @@ const Login = () => {
           Login
         </button>
       </form>
-    </section>
+    </>
   );
 };
 
