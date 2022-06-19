@@ -4,12 +4,15 @@ import { Link } from 'react-router-dom';
 
 import Styles from './Register.module.css';
 import { register } from '../../services/authServices';
+import { useAuth } from '../../AuthContext';
 
 // notification
 import Notification from '../Common/Notification';
 import FormError from '../Common/FormError';
 
 const Register = () => {
+  const { setUser } = useAuth();
+
   const [emailErr, setEmailErr] = useState(false);
   const [fullNameErr, setFullNameErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
@@ -95,6 +98,7 @@ const Register = () => {
 
     try {
       const registeredUser = await register(user);
+      setUser(registeredUser);
       openNotification('success', `Welcome ${registeredUser.fullName}.`);
     } catch (error) {
       openNotification('fail', error);

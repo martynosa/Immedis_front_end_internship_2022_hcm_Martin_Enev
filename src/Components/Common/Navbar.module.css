@@ -1,3 +1,19 @@
 .myNav {
   background-color: #f8f9fa;
 }
+
+.userBar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fullName {
+  display: flex;
+  gap: 0.5rem;
+  color: #339af0;
+}
+
+.logout {
+  cursor: pointer;
+}

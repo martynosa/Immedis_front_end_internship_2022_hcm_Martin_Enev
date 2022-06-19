@@ -4,12 +4,15 @@ import { Link } from 'react-router-dom';
 
 import Styles from './Login.module.css';
 import { login } from '../../services/authServices';
+import { useAuth } from '../../AuthContext';
 
 // notification
 import Notification from '../Common/Notification';
 import FormError from '../Common/FormError';
 
 const Login = () => {
+  const { setUser } = useAuth();
+
   const [emailErr, setEmailErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
 
@@ -67,6 +70,7 @@ const Login = () => {
 
     try {
       const loggedUser = await login(user);
+      setUser(loggedUser);
       openNotification('success', `Welcome ${loggedUser.fullName}.`);
     } catch (error) {
       openNotification('fail', error);
