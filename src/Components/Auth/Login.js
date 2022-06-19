@@ -52,7 +52,7 @@ const Login = () => {
 
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(user.email)) {
       setEmailErr(true);
-      errorMessage.push('Email is required');
+      errorMessage.push('Valid email is required');
     }
 
     if (user.password.length === 0) {
@@ -61,12 +61,13 @@ const Login = () => {
     }
 
     if (errorMessage.length !== 0) {
+      openNotification('fail', errorMessage.join(', ') + '!');
       return;
     }
 
     try {
       const loggedUser = await login(user);
-      openNotification('success', `Welcome ${loggedUser.fullName}`);
+      openNotification('success', `Welcome ${loggedUser.fullName}.`);
     } catch (error) {
       openNotification('fail', error);
     }

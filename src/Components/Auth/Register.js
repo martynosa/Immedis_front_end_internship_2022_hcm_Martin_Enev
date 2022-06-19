@@ -1,9 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { register } from '../../services/authServices';
 
 import Styles from './Register.module.css';
+import { register } from '../../services/authServices';
+
+// notification
+import Notification from '../Common/Notification';
+import FormError from '../Common/FormError';
 
 const Register = () => {
   const [emailErr, setEmailErr] = useState(false);
@@ -13,6 +17,21 @@ const Register = () => {
 
   const [passToCompare, setPassToCompare] = useState('');
 
+  // notification
+  const [notificationSettings, setNotificationSettings] = useState({
+    state: false,
+    status: 'fail',
+    message: '',
+  });
+
+  const openNotification = (status, message) => {
+    setNotificationSettings({ state: true, status, message });
+    setTimeout(() => {
+      setNotificationSettings({ state: false, status, message });
+    }, 2000);
+  };
+
+  // validation
   const emailValidator = (e) => {
     const email = e.target.value.trim();
     setEmailErr(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email));
@@ -48,7 +67,7 @@ const Register = () => {
     let errorMessage = [];
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(user.email)) {
       setEmailErr(true);
-      errorMessage.push('Email is required');
+      errorMessage.push('Valid email is required');
     }
 
     if (user.fullName.length === 0) {
@@ -70,16 +89,26 @@ const Register = () => {
     }
 
     if (errorMessage.length !== 0) {
-      return console.log(errorMessage.join(', ') + '!');
+      openNotification('fail', errorMessage.join(', ') + '!');
+      return;
     }
 
-    console.log(user);
-    const registeredUser = await register(user);
-    console.log(registeredUser);
+    try {
+      const registeredUser = await register(user);
+      openNotification('success', `Welcome ${registeredUser.fullName}.`);
+    } catch (error) {
+      openNotification('fail', error);
+    }
   };
 
   return (
     <section className={Styles.container}>
+      {notificationSettings.state && (
+        <Notification
+          status={notificationSettings.status}
+          message={notificationSettings.message}
+        />
+      )}
       <form className={Styles.form} onSubmit={submitHandler}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
@@ -96,6 +125,7 @@ const Register = () => {
             name="email"
             onBlur={emailValidator}
           />
+          {emailErr && <FormError message={'Valid email is required!'} />}
         </div>
 
         <div className="mb-3">
@@ -113,6 +143,7 @@ const Register = () => {
             name="fullName"
             onBlur={fullNameValidator}
           />
+          {fullNameErr && <FormError message={'Full name is required!'} />}
         </div>
 
         <div className="mb-3">
@@ -130,6 +161,7 @@ const Register = () => {
             name="password"
             onBlur={passwordValidator}
           />
+          {passwordErr && <FormError message={'Password is required!'} />}
         </div>
 
         <div className="mb-3">
@@ -147,6 +179,11 @@ const Register = () => {
             name="rePassword"
             onBlur={rePasswordValidator}
           />
+          {rePasswordErr && (
+            <FormError
+              message={'Repeat password must be identical to the password!'}
+            />
+          )}
         </div>
 
         <div className="mb-3">
