@@ -9,19 +9,19 @@ const Details = () => {
         <form>
           <div className="row g-3">
             <div className="col-sm-6">
-              <label for="fullName" className="form-label">
+              <label htmlFor="fullName" className="form-label">
                 Full name
               </label>
               <input
                 type="text"
                 className="form-control"
                 id="fullName"
-                value="Martin"
+                defaultValue="Martin"
               />
             </div>
 
             <div className="col-sm-6">
-              <label for="gender" className="form-label">
+              <label htmlFor="gender" className="form-label">
                 Gender
               </label>
               <select className="form-control" id="gender">
@@ -31,16 +31,16 @@ const Details = () => {
             </div>
 
             <div className="col-12">
-              <label for="uploadPhoto" className="form-label">
+              <label htmlFor="uploadPhoto" className="form-label">
                 Profile photo
               </label>
               <div className="input-group">
-                <input type="file" class="form-control" id="uploadPhoto" />
+                <input type="file" className="form-control" id="uploadPhoto" />
               </div>
             </div>
 
             <div className="col-12">
-              <label for="phone" className="form-label">
+              <label htmlFor="phone" className="form-label">
                 Phone number
               </label>
               <div className="input-group mb-3">
@@ -55,21 +55,21 @@ const Details = () => {
             </div>
 
             <div className="col-12">
-              <label for="address" className="form-label">
+              <label htmlFor="address" className="form-label">
                 Address
               </label>
               <input
                 type="text"
                 className="form-control"
                 id="address"
-                value="Varna"
+                defaultValue="Varna"
               />
             </div>
 
-            <hr class="my-4" />
+            <hr className="my-4" />
 
             <div className="col-md-6">
-              <label for="employmentType" className="form-label">
+              <label htmlFor="employmentType" className="form-label">
                 Employment type
               </label>
               <select className="form-select" id="employmentType">
@@ -80,10 +80,10 @@ const Details = () => {
             </div>
 
             <div className="col-md-6">
-              <label for="department" className="form-label">
+              <label htmlFor="department" className="form-label">
                 Department
               </label>
-              <select class="form-select" id="department">
+              <select className="form-select" id="department">
                 <option value="humanResource">Human resource</option>
                 <option value="accounting">Accounting</option>
                 <option value="sales">Sales</option>
@@ -92,38 +92,41 @@ const Details = () => {
             </div>
 
             <div className="col-md-6">
-              <label for="jobTitle" className="form-label">
+              <label htmlFor="jobTitle" className="form-label">
                 Job Title
               </label>
               <input
                 type="text"
                 className="form-control"
                 id="jobTitle"
-                value="Developer"
+                defaultValue="Developer"
               />
             </div>
 
             <div className="col-md-6">
-              <label for="salary" className="form-label">
+              <label htmlFor="salary" className="form-label">
                 Salary
               </label>
-              <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">
+              <div className="input-group mb-3">
+                <span
+                  className="input-group-text"
+                  id="inputGroup-sizing-default"
+                >
                   BGN
                 </span>
                 <input
                   type="number"
                   className="form-control"
                   id="salary"
-                  value="1500"
+                  defaultValue="1500"
                 />
               </div>
             </div>
           </div>
 
-          <hr class="my-4" />
+          <hr className="my-4" />
 
-          <button class="w-100 btn btn-primary btn-lg" type="submit">
+          <button className="w-100 btn btn-primary btn-lg" type="submit">
             Update
           </button>
         </form>
