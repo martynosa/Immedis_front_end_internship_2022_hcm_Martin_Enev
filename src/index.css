@@ -5,6 +5,10 @@
 }
 
 body {
+  background-color: #f8f9fa;
+}
+
+body {
   font-family: 'Roboto', sans-serif;
   line-height: 1;
   color: #343a40;

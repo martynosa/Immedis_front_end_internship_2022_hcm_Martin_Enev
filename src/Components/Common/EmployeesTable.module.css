@@ -2,8 +2,17 @@
   vertical-align: middle;
 }
 
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+  border-style: none;
+}
+
 .photo {
-  height: 2rem;
-  width: 2rem;
+  height: 48px;
+  width: 48px;
   border-radius: 50%;
 }

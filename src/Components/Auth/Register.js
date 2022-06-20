@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Styles from './Register.module.css';
 import { register } from '../../services/authServices';
@@ -11,6 +11,8 @@ import Notification from '../Common/Notification';
 import FormError from '../Common/FormError';
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const { setUser } = useAuth();
 
   const [emailErr, setEmailErr] = useState(false);
@@ -100,6 +102,10 @@ const Register = () => {
       const registeredUser = await register(user);
       setUser(registeredUser);
       openNotification('success', `Welcome ${registeredUser.fullName}.`);
+      // this needs to be removed and page waiting approval shown
+      registeredUser.role === 'hr'
+        ? navigate('/employees')
+        : navigate('/profile');
     } catch (error) {
       openNotification('fail', error);
     }

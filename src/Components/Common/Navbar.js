@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Styles from './Navbar.module.css';
 import { useAuth } from '../../AuthContext';
@@ -9,6 +9,8 @@ import { useAuth } from '../../AuthContext';
 import Notification from '../Common/Notification';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   const { user, setUser, isAuth } = useAuth();
 
   // notification
@@ -30,6 +32,7 @@ const Navbar = () => {
       setUser({});
       localStorage.clear();
       openNotification('success', 'Logout successful.');
+      navigate('/login');
     } catch (error) {
       openNotification({ status: 'fail', message: error });
     }

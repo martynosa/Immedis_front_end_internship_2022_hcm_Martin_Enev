@@ -1,8 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Styles from './EmployeesTable.module.css';
+import { slugify } from '../../services/helpers';
 
 const EmployeesTable = ({ employees }) => {
+  const navigate = useNavigate();
+
+  const navigateHandler = (fullName) => {
+    return navigate(`/employees/${slugify(fullName)}`);
+  };
+
+  console.log(employees);
+
   return (
     <table className={`${Styles.table} table table-hover`}>
       <thead>
@@ -16,7 +26,7 @@ const EmployeesTable = ({ employees }) => {
       <tbody>
         {employees.map((empl) => {
           return (
-            <tr key={empl._id}>
+            <tr key={empl._id} onClick={() => navigateHandler(empl.fullName)}>
               <th scope="row">
                 <img
                   className={Styles.photo}

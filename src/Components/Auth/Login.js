@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Styles from './Login.module.css';
 import { login } from '../../services/authServices';
@@ -11,6 +11,8 @@ import Notification from '../Common/Notification';
 import FormError from '../Common/FormError';
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const { setUser } = useAuth();
 
   const [emailErr, setEmailErr] = useState(false);
@@ -72,6 +74,7 @@ const Login = () => {
       const loggedUser = await login(user);
       setUser(loggedUser);
       openNotification('success', `Welcome ${loggedUser.fullName}.`);
+      loggedUser.role === 'hr' ? navigate('/employees') : navigate('/profile');
     } catch (error) {
       openNotification('fail', error);
     }
