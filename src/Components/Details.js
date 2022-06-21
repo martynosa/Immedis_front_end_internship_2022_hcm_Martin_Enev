@@ -3,133 +3,53 @@ import React from 'react';
 const Details = () => {
   return (
     <>
-      <div className="col-md-7 col-lg-8">
-        <h4 className="mb-3">Martin Enev</h4>
-        {/* PHOTO GOES HERE */}
-        <form>
-          <div className="row g-3">
-            <div className="col-sm-6">
-              <label htmlFor="fullName" className="form-label">
-                Full name
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="fullName"
-                defaultValue="Martin"
-              />
-            </div>
+      <div class="container py-4">
+        <header
+          class="pb-3 mb-4 border-bottom"
+          style={{ display: 'flex', gap: '16px' }}
+        >
+          <ion-icon name="person" style={{ 'font-size': '24px' }}></ion-icon>
+          <span class="fs-4"> Martin Enev</span>
+        </header>
 
-            <div className="col-sm-6">
-              <label htmlFor="gender" className="form-label">
-                Gender
-              </label>
-              <select className="form-control" id="gender">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-            </div>
+        <div class="p-5 mb-4 bg-light rounded-3">
+          <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">General</h1>
+            <p class="col-md-8 fs-4">
+              {/* General info will be here with photo + upload photo on the left and general info on the right */}
+              photo/uploadPhoto + name/address/ ...
+            </p>
+            <button class="btn btn-primary btn-lg" type="button">
+              {/* Button that links to UpdateUser.js */}
+              Update
+            </button>
+          </div>
+        </div>
 
-            <div className="col-12">
-              <label htmlFor="uploadPhoto" className="form-label">
-                Profile photo
-              </label>
-              <div className="input-group">
-                <input type="file" className="form-control" id="uploadPhoto" />
-              </div>
-            </div>
-
-            <div className="col-12">
-              <label htmlFor="phone" className="form-label">
-                Phone number
-              </label>
-              <div className="input-group mb-3">
-                <span className="input-group-text">+359</span>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="phone"
-                  placeholder="888888888"
-                />
-              </div>
-            </div>
-
-            <div className="col-12">
-              <label htmlFor="address" className="form-label">
-                Address
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="address"
-                defaultValue="Varna"
-              />
-            </div>
-
-            <hr className="my-4" />
-
-            <div className="col-md-6">
-              <label htmlFor="employmentType" className="form-label">
-                Employment type
-              </label>
-              <select className="form-select" id="employmentType">
-                <option value="fullTime">Full time</option>
-                <option value="intern">Intern</option>
-                <option value="partTime">Part time</option>
-              </select>
-            </div>
-
-            <div className="col-md-6">
-              <label htmlFor="department" className="form-label">
-                Department
-              </label>
-              <select className="form-select" id="department">
-                <option value="humanResource">Human resource</option>
-                <option value="accounting">Accounting</option>
-                <option value="sales">Sales</option>
-                <option value="it">IT</option>
-              </select>
-            </div>
-
-            <div className="col-md-6">
-              <label htmlFor="jobTitle" className="form-label">
-                Job Title
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="jobTitle"
-                defaultValue="Developer"
-              />
-            </div>
-
-            <div className="col-md-6">
-              <label htmlFor="salary" className="form-label">
-                Salary
-              </label>
-              <div className="input-group mb-3">
-                <span
-                  className="input-group-text"
-                  id="inputGroup-sizing-default"
-                >
-                  BGN
-                </span>
-                <input
-                  type="number"
-                  className="form-control"
-                  id="salary"
-                  defaultValue="1500"
-                />
-              </div>
+        <div class="row align-items-md-stretch">
+          <div class="col-md-6">
+            <div class="h-100 p-5 text-white bg-dark rounded-3">
+              <h2>Employment</h2>
+              <p>
+                {/* Employment info will be here */}
+                employmentType/department/jobTitle/salary/annualSalary/entry
+              </p>
             </div>
           </div>
 
-          <hr className="my-4" />
-
-          <button className="w-100 btn btn-primary btn-lg" type="submit">
-            Update
-          </button>
-        </form>
+          <div class="col-md-6">
+            <div class="h-100 p-5 bg-light border rounded-3">
+              <h2>Leave request</h2>
+              <p>
+                {/* Calendars from-to will be here/should be separate component */}
+                calendars
+              </p>
+              <button class="btn btn-outline-secondary" type="button">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
