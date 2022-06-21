@@ -12,7 +12,7 @@ tr {
 }
 
 .photo {
-  height: 48px;
-  width: 48px;
+  height: 2rem;
+  width: 2rem;
   border-radius: 50%;
 }

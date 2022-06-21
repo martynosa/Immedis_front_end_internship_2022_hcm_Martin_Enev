@@ -2,7 +2,7 @@ import React from 'react';
 
 import Styles from './Notification.module.css';
 
-const Notification = ({ status, message }) => {
+const Notification = ({ state, status, message }) => {
   let classes = '';
   let icon = null;
 
@@ -16,12 +16,16 @@ const Notification = ({ status, message }) => {
     icon = <ion-icon name="close"></ion-icon>;
   }
 
-  return (
-    <div className={classes}>
-      <div>{icon}</div>
-      <div>{message}</div>
-    </div>
-  );
+  if (state) {
+    return (
+      <div className={classes}>
+        <div>{icon}</div>
+        <div>{message}</div>
+      </div>
+    );
+  }
+
+  return;
 };
 
 export default Notification;

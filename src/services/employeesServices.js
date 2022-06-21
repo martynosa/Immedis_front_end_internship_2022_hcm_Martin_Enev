@@ -1,7 +1,7 @@
-const EMPL_URL = 'http://localhost:5000/employees';
+import { EMPLS_URL } from './constants';
 
 export const getEmployees = async (token) => {
-  const request = await fetch(`${EMPL_URL}`, {
+  const request = await fetch(`${EMPLS_URL}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

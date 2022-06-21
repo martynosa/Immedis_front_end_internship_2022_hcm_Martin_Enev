@@ -3,18 +3,31 @@
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
+.links {
+  display: flex;
+  gap: 0.3rem;
+}
+
 .userBar {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.fullName {
-  display: flex;
-  gap: 0.5rem;
+.userInfo {
   color: #339af0;
 }
 
+.photo {
+  margin-right: 0.3rem;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+}
+
 .logout {
+  display: flex;
+  gap: 0.3rem;
+  color: #ff6b6b;
   cursor: pointer;
 }
