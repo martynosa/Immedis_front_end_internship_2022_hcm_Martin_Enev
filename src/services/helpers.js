@@ -1,5 +1,5 @@
-export const slugify = (value) => {
-  return value
+export const slugify = (emplFullName) => {
+  return emplFullName
     .toLowerCase()
     .trim()
     .replace(/[^\w\s-]/g, '')

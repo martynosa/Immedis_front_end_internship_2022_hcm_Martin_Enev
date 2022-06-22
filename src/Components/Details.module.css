@@ -1,0 +1,10 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fullName {
+  display: flex;
+  gap: 0.3rem;
+}

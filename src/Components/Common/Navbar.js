@@ -7,7 +7,6 @@ import { PHOTO_URL } from '../../services/constants';
 
 const Navbar = ({ openNotification }) => {
   const navigate = useNavigate();
-
   const { user, setUser, isAuth } = useAuth();
 
   const logoutHandler = () => {
@@ -49,7 +48,10 @@ const Navbar = ({ openNotification }) => {
           {user.fullName}
         </li>
         <li>
-          <span className={`${Styles.logout} nav-link`} onClick={logoutHandler}>
+          <span
+            className={`${Styles.logout} btn btn-outline-danger btn-sm`}
+            onClick={logoutHandler}
+          >
             <ion-icon name="log-out"></ion-icon>
             Logout
           </span>

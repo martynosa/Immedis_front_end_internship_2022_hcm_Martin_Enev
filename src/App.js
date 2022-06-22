@@ -10,6 +10,7 @@ import Register from './Components/Auth/Register';
 import Profile from './Components/Profile';
 import Employees from './Components/Employees';
 import Details from './Components/Details';
+import Update from './Components/Update';
 
 function App() {
   const [notificationSettings, setNotificationSettings] = useState({
@@ -47,6 +48,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/employees" element={<Employees />} />
         <Route path="/employees/:id" element={<Details />} />
+        <Route path="/employees/:id/update" element={<Update />} />
       </Routes>
     </>
   );

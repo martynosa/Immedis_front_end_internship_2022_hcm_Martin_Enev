@@ -9,7 +9,6 @@ import EmployeesTable from './Common/EmployeesTable';
 
 const Employees = () => {
   const { user } = useAuth();
-
   const [employees, setEmployees] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 

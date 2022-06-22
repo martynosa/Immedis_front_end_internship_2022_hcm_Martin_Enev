@@ -12,3 +12,16 @@ export const getEmployees = async (token) => {
   if (request.status === 500) throw result;
   return result.data;
 };
+
+export const getEmployee = async (token, id) => {
+  const request = await fetch(`${EMPLS_URL}/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      token: token,
+    },
+  });
+  const result = await request.json();
+  if (request.status === 500) throw result;
+  return result.data;
+};

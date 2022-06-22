@@ -7,11 +7,11 @@ import { slugify } from '../../services/helpers';
 const EmployeesTable = ({ employees }) => {
   const navigate = useNavigate();
 
-  const navigateHandler = (fullName) => {
-    return navigate(`/employees/${slugify(fullName)}`);
+  const navigateHandler = (emplFullName, employeeId) => {
+    return navigate(`/employees/${slugify(emplFullName)}`, {
+      state: employeeId,
+    });
   };
-
-  console.log(employees);
 
   return (
     <table className={`${Styles.table} table table-hover`}>
@@ -26,7 +26,10 @@ const EmployeesTable = ({ employees }) => {
       <tbody>
         {employees.map((empl) => {
           return (
-            <tr key={empl._id} onClick={() => navigateHandler(empl.fullName)}>
+            <tr
+              key={empl._id}
+              onClick={() => navigateHandler(empl.fullName, empl._id)}
+            >
               <th scope="row">
                 <img
                   className={Styles.photo}
