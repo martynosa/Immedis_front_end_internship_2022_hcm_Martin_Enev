@@ -31,7 +31,7 @@ const Details = () => {
 
   return (
     <>
-      <div className="container py-4 mt-3">
+      <div className={`${Styles.container} py-4 mt-3`}>
         <header className={`${Styles.header} pb-3 mb-3 border-bottom`}>
           <div className={Styles.fullName}>
             <ion-icon name="person" style={{ fontSize: '24px' }}></ion-icon>
