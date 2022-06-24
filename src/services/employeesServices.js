@@ -25,3 +25,17 @@ export const getEmployee = async (token, id) => {
   if (request.status === 500) throw result;
   return result.data;
 };
+
+export const updateEmployee = async (token, id, newData) => {
+  const request = await fetch(`${EMPLS_URL}/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      token: token,
+    },
+    body: JSON.stringify(newData),
+  });
+  const result = await request.json();
+  if (request.status === 500) throw result;
+  return result.data;
+};

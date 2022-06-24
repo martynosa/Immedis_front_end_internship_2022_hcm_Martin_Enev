@@ -1,17 +1,54 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Styles from './Update.module.css';
-import { getEmployee } from '../services/employeesServices';
 import { useAuth } from '../AuthContext';
+import { getEmployee, updateEmployee } from '../services/employeesServices';
+import { slugify } from '../services/helpers';
 
-const Update = () => {
+const Update = ({ openNotification }) => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const [employee, setEmployee] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const newData = {
+      fullName: formData.get('fullName').trim(),
+      gender: formData.get('gender'),
+      birthDate: formData.get('birthDate'),
+      phone: formData.get('phone').trim(),
+      address: formData.get('address').trim(),
+      entryDate: formData.get('entryDate'),
+      employmentType: formData.get('employmentType'),
+      department: formData.get('department'),
+      jobTitle: formData.get('jobTitle').trim(),
+      salary: formData.get('salary').trim(),
+    };
+
+    try {
+      const updatedEmployee = await updateEmployee(
+        user.token,
+        location.state,
+        newData
+      );
+      openNotification(
+        'success',
+        `${updatedEmployee.fullName} updated successfully.`
+      );
+      navigate(`/employees/${slugify(employee.fullName)}`, {
+        state: employee._id,
+      });
+    } catch (error) {
+      openNotification('fail', error);
+    }
+  };
 
   useEffect(() => {
     getEmployee(user.token, location.state).then((empl) => {
@@ -36,7 +73,7 @@ const Update = () => {
           <span className="fs-4">{employee.fullName}</span>
         </div>
       </header>
-      <form>
+      <form onSubmit={submitHandler}>
         <div className="row g-3">
           <div className="col-sm-4">
             <label htmlFor="fullName" className="form-label">
@@ -46,7 +83,8 @@ const Update = () => {
               type="text"
               className="form-control"
               id="fullName"
-              defaultValue="Martin"
+              name="fullName"
+              defaultValue={employee.fullName}
             />
           </div>
 
@@ -54,7 +92,12 @@ const Update = () => {
             <label htmlFor="gender" className="form-label">
               Gender
             </label>
-            <select className="form-control" id="gender">
+            <select
+              className="form-control"
+              id="gender"
+              name="gender"
+              defaultValue={employee.gender}
+            >
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
@@ -65,7 +108,13 @@ const Update = () => {
               Birth date
             </label>
             <div className="input-group mb-3">
-              <input type="date" className="form-control" id="birthDate" />
+              <input
+                type="date"
+                className="form-control"
+                id="birthDate"
+                name="birthDate"
+                defaultValue={employee.birthDate?.split('T')[0]}
+              />
             </div>
           </div>
 
@@ -79,7 +128,8 @@ const Update = () => {
                 type="text"
                 className="form-control"
                 id="phone"
-                placeholder="888888888"
+                name="phone"
+                defaultValue={employee.phone}
               />
             </div>
           </div>
@@ -92,18 +142,26 @@ const Update = () => {
               type="text"
               className="form-control"
               id="address"
-              defaultValue="Varna"
+              name="address"
+              defaultValue={employee.address}
             />
           </div>
 
           <hr className="my-5" />
 
           <div className="col-4">
-            <label htmlFor="birthDate" className="form-label">
+            <label htmlFor="entryDate" className="form-label">
               Entry date
             </label>
             <div className="input-group mb-3">
-              <input type="date" className="form-control" id="birthDate" />
+              <input
+                type="date"
+                className="form-control"
+                id="entryDate"
+                name="entryDate"
+                defaultValue={employee.entryDate?.split('T')[0]}
+                disabled={user.role !== 'hr'}
+              />
             </div>
           </div>
 
@@ -111,10 +169,16 @@ const Update = () => {
             <label htmlFor="employmentType" className="form-label">
               Employment type
             </label>
-            <select className="form-select" id="employmentType">
-              <option value="fullTime">Full time</option>
-              <option value="intern">Intern</option>
-              <option value="partTime">Part time</option>
+            <select
+              className="form-select"
+              id="employmentType"
+              name="employmentType"
+              defaultValue={employee.employmentType}
+              disabled={user.role !== 'hr'}
+            >
+              <option value="Full time">Full time</option>
+              <option value="Intern">Intern</option>
+              <option value="Part time">Part time</option>
             </select>
           </div>
 
@@ -122,11 +186,18 @@ const Update = () => {
             <label htmlFor="department" className="form-label">
               Department
             </label>
-            <select className="form-select" id="department">
-              <option value="humanResource">Human resource</option>
-              <option value="accounting">Accounting</option>
-              <option value="sales">Sales</option>
-              <option value="it">IT</option>
+            <select
+              className="form-select"
+              id="department"
+              name="department"
+              defaultValue={employee.department}
+              disabled={user.role !== 'hr'}
+            >
+              <option value="Human resource">Human resource</option>
+              <option value="Management">Management</option>
+              <option value="Accounting">Accounting</option>
+              <option value="Sales">Sales</option>
+              <option value="IT">IT</option>
             </select>
           </div>
 
@@ -138,7 +209,9 @@ const Update = () => {
               type="text"
               className="form-control"
               id="jobTitle"
-              defaultValue="Developer"
+              name="jobTitle"
+              defaultValue={employee.jobTitle}
+              disabled={user.role !== 'hr'}
             />
           </div>
 
@@ -154,7 +227,9 @@ const Update = () => {
                 type="number"
                 className="form-control"
                 id="salary"
-                defaultValue="1500"
+                name="salary"
+                defaultValue={employee.salary}
+                disabled={user.role !== 'hr'}
               />
             </div>
           </div>

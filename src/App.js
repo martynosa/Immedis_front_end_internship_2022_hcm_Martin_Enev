@@ -48,7 +48,10 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/employees" element={<Employees />} />
         <Route path="/employees/:id" element={<Details />} />
-        <Route path="/employees/:id/update" element={<Update />} />
+        <Route
+          path="/employees/:id/update"
+          element={<Update openNotification={openNotification} />}
+        />
       </Routes>
     </>
   );
