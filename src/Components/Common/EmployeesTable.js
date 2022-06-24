@@ -2,12 +2,16 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Styles from './EmployeesTable.module.css';
+import { useAuth } from '../../AuthContext';
 import { slugify } from '../../services/helpers';
 
 const EmployeesTable = ({ employees }) => {
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const navigateHandler = (emplFullName, employeeId) => {
+    if (user._id !== employeeId) return;
+
     return navigate(`/employees/${slugify(emplFullName)}`, {
       state: employeeId,
     });
@@ -29,6 +33,7 @@ const EmployeesTable = ({ employees }) => {
             <tr
               key={empl._id}
               onClick={() => navigateHandler(empl.fullName, empl._id)}
+              className={user._id === empl._id && Styles.me}
             >
               <th scope="row">
                 <img
