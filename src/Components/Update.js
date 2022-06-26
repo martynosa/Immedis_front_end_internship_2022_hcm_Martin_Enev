@@ -6,6 +6,7 @@ import Styles from './Update.module.css';
 import { useAuth } from '../AuthContext';
 import { getEmployee, updateEmployee } from '../services/employeesServices';
 import { slugify } from '../services/helpers';
+import FormError from './Common/FormError';
 
 const Update = ({ openNotification }) => {
   const { user } = useAuth();
@@ -14,6 +15,20 @@ const Update = ({ openNotification }) => {
 
   const [employee, setEmployee] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+
+  const [salaryErr, setSalaryErr] = useState(false);
+  const [phoneErr, setPhoneErr] = useState(false);
+
+  // validation
+  const phoneValidator = (e) => {
+    const phone = e.target.value;
+    setPhoneErr(phone.length !== 10 && phone.length !== 0);
+  };
+
+  const salaryValidator = (e) => {
+    const salary = e.target.value;
+    setSalaryErr(salary < 0 || salary.length === 0);
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -32,6 +47,22 @@ const Update = ({ openNotification }) => {
       salary: formData.get('salary').trim(),
     };
 
+    let errorMessage = [];
+    if (newData.phone.length !== 10 && newData.phone.length !== 0) {
+      setPhoneErr(true);
+      errorMessage.push('Phone must be 10 digits or empty');
+    }
+
+    if (newData.salary < 0 || newData.salary.length === 0) {
+      setSalaryErr(true);
+      errorMessage.push('Salary must be equal to 0 or higher');
+    }
+
+    if (errorMessage.length !== 0) {
+      openNotification('fail', errorMessage.join(', ') + '!');
+      return;
+    }
+
     try {
       const updatedEmployee = await updateEmployee(
         user.token,
@@ -46,7 +77,7 @@ const Update = ({ openNotification }) => {
         state: employee._id,
       });
     } catch (error) {
-      openNotification('fail', error);
+      openNotification('fail', error.message);
     }
   };
 
@@ -68,7 +99,7 @@ const Update = ({ openNotification }) => {
   return (
     <div className={`${Styles.container} py-4 mt-3`}>
       <header className="pb-3 mb-3 border-bottom">
-        <div className={Styles.fullName}>
+        <div className={Styles.profileTitle}>
           <ion-icon name="person" style={{ fontSize: '24px' }}></ion-icon>
           <span className="fs-4">{employee.fullName}</span>
         </div>
@@ -123,15 +154,23 @@ const Update = ({ openNotification }) => {
               Phone number
             </label>
             <div className="input-group mb-3">
-              <span className="input-group-text">+359</span>
+              <span className="input-group-text">
+                <ion-icon name="phone-portrait"></ion-icon>
+              </span>
               <input
                 type="text"
-                className="form-control"
+                className={
+                  phoneErr ? `${Styles.error} form-control` : 'form-control'
+                }
                 id="phone"
                 name="phone"
                 defaultValue={employee.phone}
+                onBlur={phoneValidator}
               />
             </div>
+            {phoneErr && (
+              <FormError message={'Phone must be 10 digits or empty!'} />
+            )}
           </div>
 
           <div className="col-8">
@@ -203,7 +242,7 @@ const Update = ({ openNotification }) => {
 
           <div className="col-md-6">
             <label htmlFor="jobTitle" className="form-label">
-              Job Title
+              Job title
             </label>
             <input
               type="text"
@@ -225,13 +264,19 @@ const Update = ({ openNotification }) => {
               </span>
               <input
                 type="number"
-                className="form-control"
+                className={
+                  salaryErr ? `${Styles.error} form-control` : 'form-control'
+                }
                 id="salary"
                 name="salary"
                 defaultValue={employee.salary}
                 disabled={user.role !== 'hr'}
+                onBlur={salaryValidator}
               />
             </div>
+            {salaryErr && (
+              <FormError message={'Salary must be equal to 0 or higher!'} />
+            )}
           </div>
         </div>
 

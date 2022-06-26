@@ -49,7 +49,7 @@ const Navbar = ({ openNotification }) => {
         </li>
         <li>
           <span
-            className={`${Styles.logout} btn btn-outline-danger btn-sm`}
+            className={`${Styles.logout} btn btn-danger btn-sm`}
             onClick={logoutHandler}
           >
             <ion-icon name="log-out"></ion-icon>
@@ -82,7 +82,7 @@ const Navbar = ({ openNotification }) => {
     <nav className={`${Styles.myNav} navbar navbar-expand-lg`}>
       <div className="container-fluid">
         <Link className="navbar-brand" to="/landing">
-          Human resource LTD.
+          HR Management
         </Link>
         <button
           className="navbar-toggler"

@@ -10,7 +10,9 @@ const EmployeesTable = ({ employees }) => {
   const navigate = useNavigate();
 
   const navigateHandler = (emplFullName, employeeId) => {
-    if (user._id !== employeeId) return;
+    if (user.role === 'employee') {
+      if (user._id !== employeeId) return;
+    }
 
     return navigate(`/employees/${slugify(emplFullName)}`, {
       state: employeeId,
@@ -33,7 +35,7 @@ const EmployeesTable = ({ employees }) => {
             <tr
               key={empl._id}
               onClick={() => navigateHandler(empl.fullName, empl._id)}
-              className={user._id === empl._id && Styles.me}
+              className={user._id === empl._id ? Styles.me : undefined}
             >
               <th scope="row">
                 <img

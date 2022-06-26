@@ -27,7 +27,7 @@ const Register = ({ openNotification }) => {
 
   const fullNameValidator = (e) => {
     const fullName = e.target.value.trim();
-    setFullNameErr(fullName.length === 0);
+    setFullNameErr(fullName.length < 3);
   };
 
   const passwordValidator = (e) => {
@@ -58,9 +58,9 @@ const Register = ({ openNotification }) => {
       errorMessage.push('Valid email is required');
     }
 
-    if (user.fullName.length === 0) {
+    if (user.fullName.length < 3) {
       setFullNameErr(true);
-      errorMessage.push('Full name is required');
+      errorMessage.push('Full name must be at least 3 characters');
     }
 
     if (user.password.length < 6) {
@@ -129,7 +129,9 @@ const Register = ({ openNotification }) => {
           name="fullName"
           onBlur={fullNameValidator}
         />
-        {fullNameErr && <FormError message={'Full name is required!'} />}
+        {fullNameErr && (
+          <FormError message={'Full name must be at least 3 characters!'} />
+        )}
       </div>
 
       <div className="mb-3">
