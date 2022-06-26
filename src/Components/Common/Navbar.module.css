@@ -15,7 +15,13 @@
 }
 
 .userInfo {
-  color: #339af0;
+  font-weight: 500;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  background-color: #fcc419;
+  padding-right: 0.3rem;
 }
 
 .photo {
@@ -23,9 +29,11 @@
   height: 2rem;
   width: 2rem;
   border-radius: 50%;
+  border: 1px solid #e67700;
 }
 
 .logout {
+  font-weight: 500;
   display: flex;
   align-items: center;
   gap: 0.3rem;

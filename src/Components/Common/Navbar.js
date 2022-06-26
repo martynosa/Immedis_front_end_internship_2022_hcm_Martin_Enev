@@ -52,7 +52,6 @@ const Navbar = ({ openNotification }) => {
             className={`${Styles.logout} btn btn-danger btn-sm`}
             onClick={logoutHandler}
           >
-            <ion-icon name="log-out"></ion-icon>
             Logout
           </span>
         </li>
@@ -71,7 +70,7 @@ const Navbar = ({ openNotification }) => {
 
       <li className="nav-item">
         <Link className={`${Styles.links} nav-link`} to="/register">
-          <ion-icon name="person"></ion-icon>
+          <ion-icon name="person-add"></ion-icon>
           Register
         </Link>
       </li>
