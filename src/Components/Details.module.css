@@ -14,3 +14,8 @@
   display: flex;
   gap: 0.3rem;
 }
+
+.btnGroup {
+  display: flex;
+  gap: 0.3rem;
+}

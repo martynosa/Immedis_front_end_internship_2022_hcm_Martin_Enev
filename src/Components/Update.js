@@ -33,19 +33,31 @@ const Update = ({ openNotification }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
+    let newData = {};
     const formData = new FormData(e.target);
-    const newData = {
-      fullName: formData.get('fullName').trim(),
-      gender: formData.get('gender'),
-      birthDate: formData.get('birthDate'),
-      phone: formData.get('phone').trim(),
-      address: formData.get('address').trim(),
-      entryDate: formData.get('entryDate'),
-      employmentType: formData.get('employmentType'),
-      department: formData.get('department'),
-      jobTitle: formData.get('jobTitle').trim(),
-      salary: formData.get('salary').trim(),
-    };
+
+    if (user.role !== 'hr') {
+      newData = {
+        fullName: formData.get('fullName').trim(),
+        gender: formData.get('gender'),
+        birthDate: formData.get('birthDate'),
+        phone: formData.get('phone').trim(),
+        address: formData.get('address').trim(),
+      };
+    } else {
+      newData = {
+        fullName: formData.get('fullName').trim(),
+        gender: formData.get('gender'),
+        birthDate: formData.get('birthDate'),
+        phone: formData.get('phone').trim(),
+        address: formData.get('address').trim(),
+        entryDate: formData.get('entryDate'),
+        employmentType: formData.get('employmentType'),
+        department: formData.get('department'),
+        jobTitle: formData.get('jobTitle').trim(),
+        salary: formData.get('salary').trim(),
+      };
+    }
 
     let errorMessage = [];
     if (newData.phone.length !== 10 && newData.phone.length !== 0) {
@@ -53,9 +65,11 @@ const Update = ({ openNotification }) => {
       errorMessage.push('Phone must be 10 digits or empty');
     }
 
-    if (newData.salary < 0 || newData.salary.length === 0) {
-      setSalaryErr(true);
-      errorMessage.push('Salary must be equal to 0 or higher');
+    if (user.role === 'hr') {
+      if (newData.salary < 0 || newData.salary.length === 0) {
+        setSalaryErr(true);
+        errorMessage.push('Salary must be equal to 0 or higher');
+      }
     }
 
     if (errorMessage.length !== 0) {

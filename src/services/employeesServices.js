@@ -39,3 +39,16 @@ export const updateEmployee = async (token, id, newData) => {
   if (request.status === 500) throw result;
   return result.data;
 };
+
+export const deleteEmployee = async (token, id) => {
+  const request = await fetch(`${EMPLS_URL}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      token: token,
+    },
+  });
+  const result = await request.json();
+  if (request.status === 500) throw result;
+  return result.data;
+};

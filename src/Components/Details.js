@@ -3,16 +3,27 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { useAuth } from '../AuthContext';
-import { getEmployee } from '../services/employeesServices';
+import { getEmployee, deleteEmployee } from '../services/employeesServices';
 import { slugify } from '../services/helpers';
 import Styles from './Details.module.css';
 
-const Details = () => {
+const Details = ({ openNotification }) => {
   const { user } = useAuth();
   const location = useLocation();
 
   const [employee, setEmployee] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+
+  const deleteHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      await deleteEmployee(user.token, user._id);
+      openNotification('success', `${user.fullName} deleted successfully.`);
+    } catch (error) {
+      openNotification('fail', error.message);
+    }
+  };
 
   useEffect(() => {
     getEmployee(user.token, location.state).then((empl) => {
@@ -37,13 +48,24 @@ const Details = () => {
             <ion-icon name="person" style={{ fontSize: '24px' }}></ion-icon>
             <span className="fs-4">{employee.fullName}</span>
           </div>
-          <Link
-            className="btn btn-primary"
-            to={`/employees/${slugify(employee.fullName)}/update`}
-            state={employee._id}
-          >
-            Update
-          </Link>
+          <div className={Styles.btnGroup}>
+            <Link
+              className="btn btn-primary"
+              to={`/employees/${slugify(employee.fullName)}/update`}
+              state={employee._id}
+            >
+              Update
+            </Link>
+            {user.role === 'hr' && (
+              <button
+                className="btn btn-danger"
+                type="button"
+                onClick={deleteHandler}
+              >
+                Delete
+              </button>
+            )}
+          </div>
         </header>
 
         <div className="p-5 mb-4 bg-light rounded-3">
