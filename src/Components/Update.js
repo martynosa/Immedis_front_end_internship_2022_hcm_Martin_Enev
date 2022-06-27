@@ -33,18 +33,17 @@ const Update = ({ openNotification }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    let newData = {};
     const formData = new FormData(e.target);
 
-    if (user.role !== 'hr') {
-      newData = {
-        fullName: formData.get('fullName').trim(),
-        gender: formData.get('gender'),
-        birthDate: formData.get('birthDate'),
-        phone: formData.get('phone').trim(),
-        address: formData.get('address').trim(),
-      };
-    } else {
+    let newData = {
+      fullName: formData.get('fullName').trim(),
+      gender: formData.get('gender'),
+      birthDate: formData.get('birthDate'),
+      phone: formData.get('phone').trim(),
+      address: formData.get('address').trim(),
+    };
+
+    if (user.role === 'hr') {
       newData = {
         fullName: formData.get('fullName').trim(),
         gender: formData.get('gender'),
