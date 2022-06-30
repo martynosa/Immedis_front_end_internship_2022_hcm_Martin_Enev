@@ -5,11 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import { getEmployee, deleteEmployee } from '../services/employeesServices';
 import { PHOTO_URL } from '../services/constants';
-import {
-  capitalizeFirstLetter,
-  dateString,
-  slugify,
-} from '../services/helpers';
+import { capitalizeFirstLetter, dateFixer, slugify } from '../services/helpers';
 import Styles from './Details.module.css';
 
 const Details = ({ openNotification }) => {
@@ -79,14 +75,14 @@ const Details = ({ openNotification }) => {
           </div>
         </header>
 
-        <div className="p-5 mb-4 rounded-3">
+        <div className="rounded-3">
           <div className="container-fluid py-5">
             <h1 className="display-5 fw-bold mb-3">General</h1>
             <p className="col-md-8 fs-4">
               Gender: {capitalizeFirstLetter(employee.gender)}
             </p>
             <p className="col-md-8 fs-4">
-              Birth date: {dateString(employee.birthDate)}
+              Birth date: {dateFixer(employee.birthDate)}
             </p>
             <p className="col-md-8 fs-4">Phone number: {employee.phone}</p>
             <p className="col-md-8 fs-4">Address: {employee.address}</p>
@@ -97,7 +93,7 @@ const Details = ({ openNotification }) => {
           <div className="col-md-7">
             <div className="h-100 p-5 text-white bg-dark rounded-3">
               <h2 className="mb-3">Employment</h2>
-              <p>Hired on: {dateString(employee.entryDate)}</p>
+              <p>Hired on: {dateFixer(employee.entryDate)}</p>
               <p>Employment Type: {employee.employmentType}</p>
               <p>Department: {employee.department}</p>
               <p>Job title: {employee.jobTitle}</p>

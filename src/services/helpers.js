@@ -12,7 +12,7 @@ export const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export const dateString = (date) => {
+export const dateFixer = (date) => {
   if (!date) return;
   return date.split('T')[0].split('-').reverse().join('-');
 };

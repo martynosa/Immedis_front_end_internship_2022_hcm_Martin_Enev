@@ -10,7 +10,7 @@ import {
   uploadPhoto,
 } from '../services/employeesServices';
 import { PHOTO_URL } from '../services/constants';
-import { slugify } from '../services/helpers';
+import { dateFixer, slugify } from '../services/helpers';
 import FormError from './Common/FormError';
 
 const Update = ({ openNotification }) => {
@@ -164,7 +164,7 @@ const Update = ({ openNotification }) => {
                 id="uploadPhoto"
                 name="photo"
               />
-              <button className="btn btn-outline-secondary" type="submit">
+              <button className="btn btn-outline-primary" type="submit">
                 Upload
               </button>
             </div>
@@ -212,7 +212,7 @@ const Update = ({ openNotification }) => {
                 className="form-control"
                 id="birthDate"
                 name="birthDate"
-                defaultValue={employee.birthDate?.split('T')[0]}
+                defaultValue={dateFixer(employee.birthDate)}
               />
             </div>
           </div>
@@ -264,7 +264,7 @@ const Update = ({ openNotification }) => {
                 className="form-control"
                 id="entryDate"
                 name="entryDate"
-                defaultValue={employee.entryDate?.split('T')[0]}
+                defaultValue={dateFixer(employee.entryDate)}
                 disabled={user.role !== 'hr'}
               />
             </div>
@@ -320,7 +320,7 @@ const Update = ({ openNotification }) => {
             />
           </div>
 
-          <div className="col-md-6 mb-3">
+          <div className="col-md-6 mb-5">
             <label htmlFor="salary" className="form-label">
               Salary
             </label>
