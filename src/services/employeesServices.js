@@ -52,3 +52,16 @@ export const deleteEmployee = async (token, id) => {
   if (request.status === 500) throw result;
   return result.data;
 };
+
+export const uploadPhoto = async (token, formData, id) => {
+  const request = await fetch(`${EMPLS_URL}/${id}/uploadPhoto`, {
+    method: 'POST',
+    headers: {
+      token: token,
+    },
+    body: formData,
+  });
+  const result = await request.json();
+  if (request.status === 500) throw result;
+  return result.data;
+};

@@ -4,12 +4,17 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import Styles from './Update.module.css';
 import { useAuth } from '../AuthContext';
-import { getEmployee, updateEmployee } from '../services/employeesServices';
+import {
+  getEmployee,
+  updateEmployee,
+  uploadPhoto,
+} from '../services/employeesServices';
+import { PHOTO_URL } from '../services/constants';
 import { slugify } from '../services/helpers';
 import FormError from './Common/FormError';
 
 const Update = ({ openNotification }) => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,6 +33,27 @@ const Update = ({ openNotification }) => {
   const salaryValidator = (e) => {
     const salary = e.target.value;
     setSalaryErr(salary < 0 || salary.length === 0);
+  };
+
+  const uploadPhotoHandler = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    try {
+      const updatedEmployee = await uploadPhoto(
+        user.token,
+        formData,
+        location.state
+      );
+      setEmployee(updatedEmployee);
+      if (user._id === updatedEmployee._id)
+        setUser({ ...user, ...updatedEmployee });
+      openNotification(
+        'success',
+        `${updatedEmployee.fullName} updated successfully.`
+      );
+    } catch (error) {
+      openNotification('fail', error.message);
+    }
   };
 
   const submitHandler = async (e) => {
@@ -82,12 +108,15 @@ const Update = ({ openNotification }) => {
         location.state,
         newData
       );
+      setEmployee(updatedEmployee);
+      if (user._id === updatedEmployee._id)
+        setUser({ ...user, ...updatedEmployee });
       openNotification(
         'success',
         `${updatedEmployee.fullName} updated successfully.`
       );
-      navigate(`/employees/${slugify(employee.fullName)}`, {
-        state: employee._id,
+      navigate(`/employees/${slugify(updatedEmployee.fullName)}`, {
+        state: updatedEmployee._id,
       });
     } catch (error) {
       openNotification('fail', error.message);
@@ -113,13 +142,39 @@ const Update = ({ openNotification }) => {
     <div className={`${Styles.container} py-4 mt-3`}>
       <header className="pb-3 mb-3 border-bottom">
         <div className={Styles.profileTitle}>
-          <ion-icon name="person" style={{ fontSize: '24px' }}></ion-icon>
+          <img
+            className={Styles.photo}
+            src={`${PHOTO_URL}/${employee.photo}`}
+            alt="employee's mugshot"
+          ></img>
           <span className="fs-4">{employee.fullName}</span>
         </div>
       </header>
+
+      <form onSubmit={uploadPhotoHandler} className="mb-5">
+        <div className="row g-3">
+          <div className="col-md-12">
+            <label htmlFor="uploadPhoto" className="form-label">
+              Profile photo
+            </label>
+            <div className="input-group">
+              <input
+                type="file"
+                className="form-control"
+                id="uploadPhoto"
+                name="photo"
+              />
+              <button className="btn btn-outline-secondary" type="submit">
+                Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
       <form onSubmit={submitHandler}>
         <div className="row g-3">
-          <div className="col-sm-4">
+          <div className="col-md-4">
             <label htmlFor="fullName" className="form-label">
               Full name
             </label>
@@ -132,7 +187,7 @@ const Update = ({ openNotification }) => {
             />
           </div>
 
-          <div className="col-sm-4">
+          <div className="col-md-4">
             <label htmlFor="gender" className="form-label">
               Gender
             </label>
@@ -147,11 +202,11 @@ const Update = ({ openNotification }) => {
             </select>
           </div>
 
-          <div className="col-4">
+          <div className="col-md-4">
             <label htmlFor="birthDate" className="form-label">
               Birth date
             </label>
-            <div className="input-group mb-3">
+            <div className="input-group">
               <input
                 type="date"
                 className="form-control"
@@ -162,7 +217,7 @@ const Update = ({ openNotification }) => {
             </div>
           </div>
 
-          <div className="col-4">
+          <div className="col-md-4">
             <label htmlFor="phone" className="form-label">
               Phone number
             </label>
@@ -186,7 +241,7 @@ const Update = ({ openNotification }) => {
             )}
           </div>
 
-          <div className="col-8">
+          <div className="col-md-8 mb-3">
             <label htmlFor="address" className="form-label">
               Address
             </label>
@@ -199,13 +254,11 @@ const Update = ({ openNotification }) => {
             />
           </div>
 
-          <hr className="my-5" />
-
-          <div className="col-4">
+          <div className="col-md-4">
             <label htmlFor="entryDate" className="form-label">
               Entry date
             </label>
-            <div className="input-group mb-3">
+            <div className="input-group">
               <input
                 type="date"
                 className="form-control"
@@ -267,7 +320,7 @@ const Update = ({ openNotification }) => {
             />
           </div>
 
-          <div className="col-md-6">
+          <div className="col-md-6 mb-3">
             <label htmlFor="salary" className="form-label">
               Salary
             </label>
@@ -292,8 +345,6 @@ const Update = ({ openNotification }) => {
             )}
           </div>
         </div>
-
-        <hr className="my-5" />
 
         <button className="w-100 btn btn-primary btn-lg" type="submit">
           Submit

@@ -6,3 +6,13 @@ export const slugify = (emplFullName) => {
     .replace(/[\s_-]+/g, '-')
     .replace(/^-+|-+$/g, '');
 };
+
+export const capitalizeFirstLetter = (string) => {
+  if (!string) return;
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+export const dateString = (date) => {
+  if (!date) return;
+  return date.split('T')[0].split('-').reverse().join('-');
+};

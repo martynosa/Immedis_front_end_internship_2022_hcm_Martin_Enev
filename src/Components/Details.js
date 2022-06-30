@@ -1,15 +1,21 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../AuthContext';
 import { getEmployee, deleteEmployee } from '../services/employeesServices';
-import { slugify } from '../services/helpers';
+import { PHOTO_URL } from '../services/constants';
+import {
+  capitalizeFirstLetter,
+  dateString,
+  slugify,
+} from '../services/helpers';
 import Styles from './Details.module.css';
 
 const Details = ({ openNotification }) => {
   const { user } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [employee, setEmployee] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -18,8 +24,9 @@ const Details = ({ openNotification }) => {
     e.preventDefault();
 
     try {
-      await deleteEmployee(user.token, user._id);
-      openNotification('success', `${user.fullName} deleted successfully.`);
+      await deleteEmployee(user.token, employee._id);
+      openNotification('success', `${employee.fullName} deleted successfully.`);
+      navigate('/employees');
     } catch (error) {
       openNotification('fail', error.message);
     }
@@ -45,7 +52,11 @@ const Details = ({ openNotification }) => {
       <div className={`${Styles.container} py-4 mt-3`}>
         <header className={`${Styles.header} pb-3 mb-3 border-bottom`}>
           <div className={Styles.fullName}>
-            <ion-icon name="person" style={{ fontSize: '24px' }}></ion-icon>
+            <img
+              className={Styles.photo}
+              src={`${PHOTO_URL}/${employee.photo}`}
+              alt="employee's mugshot"
+            ></img>
             <span className="fs-4">{employee.fullName}</span>
           </div>
           <div className={Styles.btnGroup}>
@@ -56,7 +67,7 @@ const Details = ({ openNotification }) => {
             >
               Update
             </Link>
-            {user.role === 'hr' && (
+            {user.role === 'hr' && user._id !== employee._id && (
               <button
                 className="btn btn-danger"
                 type="button"
@@ -68,35 +79,65 @@ const Details = ({ openNotification }) => {
           </div>
         </header>
 
-        <div className="p-5 mb-4 bg-light rounded-3">
+        <div className="p-5 mb-4 rounded-3">
           <div className="container-fluid py-5">
-            <h1 className="display-5 fw-bold">General</h1>
+            <h1 className="display-5 fw-bold mb-3">General</h1>
             <p className="col-md-8 fs-4">
-              {/* General info will be here with photo + upload photo on the left and general info on the right */}
-              photo/uploadPhoto + name/address/ ...
+              Gender: {capitalizeFirstLetter(employee.gender)}
             </p>
+            <p className="col-md-8 fs-4">
+              Birth date: {dateString(employee.birthDate)}
+            </p>
+            <p className="col-md-8 fs-4">Phone number: {employee.phone}</p>
+            <p className="col-md-8 fs-4">Address: {employee.address}</p>
           </div>
         </div>
 
         <div className="row align-items-md-stretch">
-          <div className="col-md-6">
+          <div className="col-md-7">
             <div className="h-100 p-5 text-white bg-dark rounded-3">
-              <h2>Employment</h2>
-              <p>
-                {/* Employment info will be here */}
-                employmentType/department/jobTitle/salary/annualSalary/entry
-              </p>
+              <h2 className="mb-3">Employment</h2>
+              <p>Hired on: {dateString(employee.entryDate)}</p>
+              <p>Employment Type: {employee.employmentType}</p>
+              <p>Department: {employee.department}</p>
+              <p>Job title: {employee.jobTitle}</p>
+              <p>Salary: {employee.salary} BGN</p>
             </div>
           </div>
+          <div className="col-md-5">
+            <div className="h-100 p-5 rounded-3">
+              <h2 className="mb-3">Leave request</h2>
+              <div className="row">
+                <div className="col-sm-6">
+                  <label htmlFor="leaveFrom" className="form-label">
+                    From
+                  </label>
+                  <div className="input-group mb-3">
+                    <input
+                      type="date"
+                      className="form-control"
+                      id="leaveFrom"
+                      name="leaveFrom"
+                    />
+                  </div>
+                </div>
 
-          <div className="col-md-6">
-            <div className="h-100 p-5 bg-light border rounded-3">
-              <h2>Leave request</h2>
-              <p>
-                {/* Calendars from-to will be here/should be separate component */}
-                calendars
-              </p>
-              <button className="btn btn-outline-secondary" type="button">
+                <div className="col-sm-6">
+                  <label htmlFor="leaveTo" className="form-label">
+                    To
+                  </label>
+                  <div className="input-group mb-3">
+                    <input
+                      type="date"
+                      className="form-control"
+                      id="leaveTo"
+                      name="leaveTo"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <button className="btn btn-primary w-100 mt-5" type="button">
                 Submit
               </button>
             </div>

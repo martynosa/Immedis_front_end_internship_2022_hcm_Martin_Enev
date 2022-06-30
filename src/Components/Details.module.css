@@ -12,10 +12,25 @@
 
 .fullName {
   display: flex;
+  align-items: center;
   gap: 0.3rem;
 }
 
 .btnGroup {
   display: flex;
   gap: 0.3rem;
+}
+
+.photo {
+  margin-right: 0.3rem;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  border: 1px solid #e67700;
+}
+
+.generalInfo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.6rem;
 }
