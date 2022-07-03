@@ -16,3 +16,8 @@ export const dateFixer = (date) => {
   if (!date) return;
   return date.split('T')[0].split('-').reverse().join('-');
 };
+
+export const defaultValueDate = (date) => {
+  if (!date) return;
+  return date.split('T')[0];
+};

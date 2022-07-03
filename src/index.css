@@ -13,3 +13,65 @@ body {
   line-height: 1;
   color: #343a40;
 }
+
+/* COMMON */
+.container {
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: 1.2rem;
+}
+
+.details-container {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.2rem;
+}
+
+.error {
+  box-shadow: 0 0 0 0.25rem #ff6b6b;
+}
+
+/* AUTH */
+.form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1.2rem;
+  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  min-width: 30rem;
+}
+
+.link {
+  text-decoration: none;
+  display: flex;
+}
+
+/* --LOGIN-- */
+.login-form {
+  background-color: #a5d8ff;
+}
+
+.login-inputs {
+  background-color: #edf2ff;
+  border: none;
+}
+
+.login-inputs:focus {
+  background-color: #edf2ff;
+}
+
+/* --REGISTER-- */
+.register-form {
+  background-color: #a5d8ff;
+}
+
+.register-inputs {
+  background-color: #edf2ff;
+  border: none;
+}
+
+.register-inputs:focus {
+  background-color: #edf2ff;
+}

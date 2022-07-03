@@ -2,15 +2,14 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import Styles from './Update.module.css';
 import { useAuth } from '../AuthContext';
+import PageHeader from './Common/PageHeader';
 import {
   getEmployee,
   updateEmployee,
   uploadPhoto,
 } from '../services/employeesServices';
-import { PHOTO_URL } from '../services/constants';
-import { dateFixer, slugify } from '../services/helpers';
+import { defaultValueDate, slugify } from '../services/helpers';
 import FormError from './Common/FormError';
 
 const Update = ({ openNotification }) => {
@@ -139,17 +138,12 @@ const Update = ({ openNotification }) => {
   }
 
   return (
-    <div className={`${Styles.container} py-4 mt-3`}>
-      <header className="pb-3 mb-3 border-bottom">
-        <div className={Styles.profileTitle}>
-          <img
-            className={Styles.photo}
-            src={`${PHOTO_URL}/${employee.photo}`}
-            alt="employee's mugshot"
-          ></img>
-          <span className="fs-4">{employee.fullName}</span>
-        </div>
-      </header>
+    <div className="container y-4 mt-3">
+      <PageHeader
+        user={user}
+        employee={employee}
+        openNotification={openNotification}
+      />
 
       <form onSubmit={uploadPhotoHandler} className="mb-5">
         <div className="row g-3">
@@ -212,7 +206,7 @@ const Update = ({ openNotification }) => {
                 className="form-control"
                 id="birthDate"
                 name="birthDate"
-                defaultValue={dateFixer(employee.birthDate)}
+                defaultValue={defaultValueDate(employee.birthDate)}
               />
             </div>
           </div>
@@ -227,9 +221,7 @@ const Update = ({ openNotification }) => {
               </span>
               <input
                 type="text"
-                className={
-                  phoneErr ? `${Styles.error} form-control` : 'form-control'
-                }
+                className={phoneErr ? 'error form-control' : 'form-control'}
                 id="phone"
                 name="phone"
                 defaultValue={employee.phone}
@@ -264,7 +256,7 @@ const Update = ({ openNotification }) => {
                 className="form-control"
                 id="entryDate"
                 name="entryDate"
-                defaultValue={dateFixer(employee.entryDate)}
+                defaultValue={defaultValueDate(employee.entryDate)}
                 disabled={user.role !== 'hr'}
               />
             </div>
@@ -330,9 +322,7 @@ const Update = ({ openNotification }) => {
               </span>
               <input
                 type="number"
-                className={
-                  salaryErr ? `${Styles.error} form-control` : 'form-control'
-                }
+                className={salaryErr ? 'error form-control' : 'form-control'}
                 id="salary"
                 name="salary"
                 defaultValue={employee.salary}

@@ -7,7 +7,6 @@ import Notification from './Components/Common/Notification';
 import Landing from './Components/Landing';
 import Login from './Components/Auth/Login';
 import Register from './Components/Auth/Register';
-import Profile from './Components/Profile';
 import Employees from './Components/Employees';
 import Details from './Components/Details';
 import Update from './Components/Update';
@@ -45,7 +44,10 @@ function App() {
           path="/register"
           element={<Register openNotification={openNotification} />}
         />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/profile"
+          element={<Details openNotification={openNotification} />}
+        />
         <Route path="/employees" element={<Employees />} />
         <Route
           path="/employees/:id"

@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import Styles from './Login.module.css';
 import { login } from '../../services/authServices';
 import { useAuth } from '../../AuthContext';
 import FormError from '../Common/FormError';
@@ -64,7 +63,7 @@ const Login = ({ openNotification }) => {
   };
 
   return (
-    <form className={Styles.form} onSubmit={submitHandler}>
+    <form className="form login-form" onSubmit={submitHandler}>
       <div className="mb-3">
         <label htmlFor="email" className="form-label">
           Email
@@ -73,8 +72,8 @@ const Login = ({ openNotification }) => {
           type="text"
           className={
             emailErr
-              ? `${Styles.error} ${Styles.inputs} form-control`
-              : `${Styles.inputs} form-control`
+              ? 'error login-inputs form-control'
+              : 'login-inputs form-control'
           }
           id="email"
           name="email"
@@ -91,8 +90,8 @@ const Login = ({ openNotification }) => {
           type="password"
           className={
             passwordErr
-              ? `${Styles.error} ${Styles.inputs} form-control`
-              : `${Styles.inputs} form-control`
+              ? 'error login-inputs form-control'
+              : 'login-inputs form-control'
           }
           id="password"
           name="password"
@@ -104,13 +103,13 @@ const Login = ({ openNotification }) => {
       <div className="mb-3">
         <p>
           Don't have an account?&nbsp;
-          <Link to="/register" className={Styles.link}>
+          <Link to="/register" className="link">
             Register&nbsp;<ion-icon name="arrow-round-forward"></ion-icon>
           </Link>
         </p>
       </div>
 
-      <button type="submit" className={`${Styles.btn} btn btn-primary`}>
+      <button type="submit" className="btn btn-primary">
         Login
       </button>
     </form>

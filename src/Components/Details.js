@@ -1,32 +1,20 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { useAuth } from '../AuthContext';
-import { getEmployee, deleteEmployee } from '../services/employeesServices';
-import { PHOTO_URL } from '../services/constants';
-import { capitalizeFirstLetter, dateFixer, slugify } from '../services/helpers';
-import Styles from './Details.module.css';
+import PageHeader from './Common/PageHeader';
+import { getEmployee } from '../services/employeesServices';
+import { capitalizeFirstLetter, dateFixer } from '../services/helpers';
 
 const Details = ({ openNotification }) => {
   const { user } = useAuth();
   const location = useLocation();
-  const navigate = useNavigate();
+
+  if (location.pathname === '/profile') location.state = user._id;
 
   const [employee, setEmployee] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-
-  const deleteHandler = async (e) => {
-    e.preventDefault();
-
-    try {
-      await deleteEmployee(user.token, employee._id);
-      openNotification('success', `${employee.fullName} deleted successfully.`);
-      navigate('/employees');
-    } catch (error) {
-      openNotification('fail', error.message);
-    }
-  };
 
   useEffect(() => {
     getEmployee(user.token, location.state).then((empl) => {
@@ -45,36 +33,12 @@ const Details = ({ openNotification }) => {
 
   return (
     <>
-      <div className={`${Styles.container} py-4 mt-3`}>
-        <header className={`${Styles.header} pb-3 mb-3 border-bottom`}>
-          <div className={Styles.fullName}>
-            <img
-              className={Styles.photo}
-              src={`${PHOTO_URL}/${employee.photo}`}
-              alt="employee's mugshot"
-            ></img>
-            <span className="fs-4">{employee.fullName}</span>
-          </div>
-          <div className={Styles.btnGroup}>
-            <Link
-              className="btn btn-primary"
-              to={`/employees/${slugify(employee.fullName)}/update`}
-              state={employee._id}
-            >
-              Update
-            </Link>
-            {user.role === 'hr' && user._id !== employee._id && (
-              <button
-                className="btn btn-danger"
-                type="button"
-                onClick={deleteHandler}
-              >
-                Delete
-              </button>
-            )}
-          </div>
-        </header>
-
+      <div className="details-container py-4 mt-3">
+        <PageHeader
+          user={user}
+          employee={employee}
+          openNotification={openNotification}
+        />
         <div className="rounded-3">
           <div className="container-fluid py-5">
             <h1 className="display-5 fw-bold mb-3">General</h1>

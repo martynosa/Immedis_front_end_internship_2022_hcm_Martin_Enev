@@ -1,13 +1,13 @@
-.container {
-  max-width: 72rem;
-  margin: 0 auto;
-  padding: 1.2rem;
-}
-
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
 .fullName {
@@ -26,11 +26,5 @@
   height: 4rem;
   width: 4rem;
   border-radius: 50%;
-  border: 1px solid #e67700;
-}
-
-.generalInfo {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.6rem;
+  border: 3px solid #e67700;
 }

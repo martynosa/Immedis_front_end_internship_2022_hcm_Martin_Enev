@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import Styles from './Register.module.css';
 import { register } from '../../services/authServices';
 import { useAuth } from '../../AuthContext';
 import FormError from '../Common/FormError';
@@ -95,7 +94,7 @@ const Register = ({ openNotification }) => {
   };
 
   return (
-    <form className={Styles.form} onSubmit={submitHandler}>
+    <form className="form register-form" onSubmit={submitHandler}>
       <div className="mb-3">
         <label htmlFor="email" className="form-label">
           Email
@@ -104,8 +103,8 @@ const Register = ({ openNotification }) => {
           type="text"
           className={
             emailErr
-              ? `${Styles.error} ${Styles.inputs} form-control`
-              : `${Styles.inputs} form-control`
+              ? 'error register-inputs form-control'
+              : 'register-inputs form-control'
           }
           id="email"
           name="email"
@@ -122,8 +121,8 @@ const Register = ({ openNotification }) => {
           type="text"
           className={
             fullNameErr
-              ? `${Styles.error} ${Styles.inputs} form-control`
-              : `${Styles.inputs} form-control`
+              ? 'error register-inputs form-control'
+              : 'register-inputs form-control'
           }
           id="fullName"
           name="fullName"
@@ -142,8 +141,8 @@ const Register = ({ openNotification }) => {
           type="password"
           className={
             passwordErr
-              ? `${Styles.error} ${Styles.inputs} form-control`
-              : `${Styles.inputs} form-control`
+              ? 'error register-inputs form-control'
+              : 'register-inputs form-control'
           }
           id="password"
           name="password"
@@ -160,8 +159,8 @@ const Register = ({ openNotification }) => {
           type="password"
           className={
             rePasswordErr
-              ? `${Styles.error} ${Styles.inputs} form-control`
-              : `${Styles.inputs} form-control`
+              ? 'error register-inputs form-control'
+              : 'register-inputs form-control'
           }
           id="rePassword"
           name="rePassword"
@@ -178,11 +177,7 @@ const Register = ({ openNotification }) => {
         <label htmlFor="role" className="form-label">
           Role
         </label>
-        <select
-          id="role"
-          className={`${Styles.inputs} form-select`}
-          name="role"
-        >
+        <select id="role" className={'register-inputs form-select'} name="role">
           <option value="employee">Employee</option>
           <option value="hr">HR</option>
         </select>
@@ -191,7 +186,7 @@ const Register = ({ openNotification }) => {
       <div className="mt-5">
         <p>
           Already registered?&nbsp;
-          <Link to="/login" className={Styles.link}>
+          <Link to="/login" className="link">
             <ion-icon name="arrow-round-back"></ion-icon>&nbsp;Login
           </Link>
         </p>

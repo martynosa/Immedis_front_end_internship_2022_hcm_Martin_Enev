@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-import Styles from '../Components/Employees.module.css';
 import { useAuth } from '../AuthContext';
 import { getEmployees } from '../services/employeesServices';
 import PageTitle from './Common/PageTitle';
@@ -29,7 +28,7 @@ const Employees = () => {
 
   return (
     <>
-      <div className={Styles.container}>
+      <div className="container">
         <PageTitle title={'Employees'} />
         <EmployeesTable employees={employees} />
       </div>
