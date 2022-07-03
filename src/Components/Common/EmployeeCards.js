@@ -19,7 +19,7 @@ const EmployeeCards = ({ empl }) => {
   };
 
   return (
-    <div className="card" key={empl._id} onClick={navigateHandler}>
+    <div className="card shadow" key={empl._id} onClick={navigateHandler}>
       <img
         className="card-img-top"
         src={`http://localhost:5000/users/${empl.photo}`}
