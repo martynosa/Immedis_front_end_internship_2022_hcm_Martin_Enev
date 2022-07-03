@@ -1,8 +1,13 @@
 .hover {
+  border: none;
   transition: all 0.3s;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .hover:hover {
   transform: scale(1.03);
+}
+
+.me {
+  box-shadow: 0px 5px 10px rgba(132, 94, 247, 0.5);
 }

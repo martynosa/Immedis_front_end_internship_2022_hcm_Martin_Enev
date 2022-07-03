@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../AuthContext';
+import { PHOTO_URL } from '../../services/constants';
 import { slugify, dateFixer } from '../../services/helpers';
 
 import Styles from './EmployeeCard.module.css';
@@ -10,9 +11,11 @@ const EmployeeCards = ({ empl }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  const isMe = user._id === empl._id;
+
   const navigateHandler = () => {
     if (user.role === 'employee') {
-      if (user._id !== empl._id) return;
+      if (!isMe) return;
     }
 
     return navigate(`/employees/${slugify(empl.fullName)}`, {
@@ -22,13 +25,15 @@ const EmployeeCards = ({ empl }) => {
 
   return (
     <div
-      className={`${Styles.hover} ${Styles.me} card`}
+      className={
+        isMe ? `${Styles.hover} ${Styles.me} card` : `${Styles.hover} card`
+      }
       key={empl._id}
       onClick={navigateHandler}
     >
       <img
         className="card-img-top"
-        src={`http://localhost:5000/users/${empl.photo}`}
+        src={`${PHOTO_URL}/${empl.photo}`}
         alt="employee's mugshot"
       />
       <div className="card-body">
