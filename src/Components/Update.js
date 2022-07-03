@@ -287,7 +287,6 @@ const Update = ({ openNotification }) => {
               defaultValue={employee.department}
               disabled={user.role !== 'hr'}
             >
-              <option value="Human resource">Human resource</option>
               <option value="Management">Management</option>
               <option value="Accounting">Accounting</option>
               <option value="Sales">Sales</option>
