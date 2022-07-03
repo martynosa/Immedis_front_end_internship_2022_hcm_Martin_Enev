@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../AuthContext';
 import { getEmployees } from '../services/employeesServices';
 import PageTitle from './Common/PageTitle';
-import EmployeeCards from './Common/EmployeeCards';
+import EmployeeCard from './Common/EmployeeCard';
 
 const Employees = () => {
   const { user } = useAuth();
@@ -31,7 +31,7 @@ const Employees = () => {
       <PageTitle title={'Employees'} />
       <div className="employees-container">
         {employees.map((empl) => (
-          <EmployeeCards key={empl._id} empl={empl} />
+          <EmployeeCard key={empl._id} empl={empl} />
         ))}
       </div>
     </>

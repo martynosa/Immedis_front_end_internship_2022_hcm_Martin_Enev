@@ -20,7 +20,7 @@
   border-bottom-left-radius: 100px;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
-  background-color: #fcc419;
+  background-color: #d0bfff;
   padding-right: 0.3rem;
 }
 
@@ -29,7 +29,7 @@
   height: 2rem;
   width: 2rem;
   border-radius: 50%;
-  border: 2px solid #e67700;
+  border: 2px solid #845ef7;
 }
 
 .logout {

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import { slugify, dateFixer } from '../../services/helpers';
 
+import Styles from './EmployeeCard.module.css';
+
 const EmployeeCards = ({ empl }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -19,7 +21,11 @@ const EmployeeCards = ({ empl }) => {
   };
 
   return (
-    <div className="card shadow" key={empl._id} onClick={navigateHandler}>
+    <div
+      className={`${Styles.hover} ${Styles.me} card`}
+      key={empl._id}
+      onClick={navigateHandler}
+    >
       <img
         className="card-img-top"
         src={`http://localhost:5000/users/${empl.photo}`}

@@ -55,7 +55,7 @@ const Details = ({ openNotification }) => {
 
         <div className="row align-items-md-stretch">
           <div className="col-md-7">
-            <div className="h-100 p-5 text-white bg-dark rounded-3 shadow">
+            <div className="h-100 p-5 text-white bg-dark rounded-3">
               <h2 className="mb-3">Employment</h2>
               <p>Hired on: {dateFixer(employee.entryDate)}</p>
               <p>Employment Type: {employee.employmentType}</p>

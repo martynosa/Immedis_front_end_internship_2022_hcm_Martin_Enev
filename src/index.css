@@ -5,13 +5,10 @@
 }
 
 body {
-  background-color: #f8f9fa;
-}
-
-body {
   font-family: 'Rubik', sans-serif;
   line-height: 1;
   color: #343a40;
+  background-color: #f8f9fa;
 }
 
 /* COMMON */
@@ -54,26 +51,26 @@ body {
 }
 
 .login-inputs {
-  background-color: #edf2ff;
+  background-color: #e7f5ff;
   border: none;
 }
 
 .login-inputs:focus {
-  background-color: #edf2ff;
+  background-color: #e7f5ff;
 }
 
 /* --REGISTER-- */
 .register-form {
-  background-color: #a5d8ff;
+  background-color: #d0bfff;
 }
 
 .register-inputs {
-  background-color: #edf2ff;
+  background-color: #f3f0ff;
   border: none;
 }
 
 .register-inputs:focus {
-  background-color: #edf2ff;
+  background-color: #f3f0ff;
 }
 
 /* EMPLOYEES */
@@ -81,7 +78,8 @@ body {
   max-width: 72rem;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 1.2rem;
   justify-content: center;
+  padding: 0 1.2rem;
 }
