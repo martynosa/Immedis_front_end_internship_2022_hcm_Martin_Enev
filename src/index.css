@@ -75,3 +75,13 @@ body {
 .register-inputs:focus {
   background-color: #edf2ff;
 }
+
+/* EMPLOYEES */
+.employees-container {
+  max-width: 72rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.2rem;
+  justify-content: center;
+}

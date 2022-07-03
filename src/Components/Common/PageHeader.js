@@ -17,7 +17,7 @@ const PageHeader = ({ user, employee, openNotification }) => {
       ? navigate(`/employees/${slugify(employee.fullName)}`, {
           state: employee._id,
         })
-      : navigate('/');
+      : navigate('/employees');
   };
 
   const deleteHandler = async (e) => {
