@@ -5,6 +5,7 @@ import { useAuth } from '../AuthContext';
 import { getEmployees } from '../services/employeesServices';
 import PageTitle from './Common/PageTitle';
 import EmployeeCard from './Common/EmployeeCard';
+import Loading from './Common/Loading';
 
 const Employees = () => {
   const { user } = useAuth();
@@ -19,11 +20,7 @@ const Employees = () => {
   }, [user.token]);
 
   if (isLoading) {
-    return (
-      <div className="spinner-border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    );
+    return <Loading />;
   }
 
   return (

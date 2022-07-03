@@ -11,6 +11,7 @@ import {
 } from '../services/employeesServices';
 import { defaultValueDate, slugify } from '../services/helpers';
 import FormError from './Common/FormError';
+import Loading from './Common/Loading';
 
 const Update = ({ openNotification }) => {
   const { user, setUser } = useAuth();
@@ -130,11 +131,7 @@ const Update = ({ openNotification }) => {
   }, [user.token, location.state]);
 
   if (isLoading) {
-    return (
-      <div className="spinner-border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    );
+    return <Loading />;
   }
 
   return (

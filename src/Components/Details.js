@@ -6,6 +6,7 @@ import { useAuth } from '../AuthContext';
 import PageHeader from './Common/PageHeader';
 import { getEmployee } from '../services/employeesServices';
 import { capitalizeFirstLetter, dateFixer } from '../services/helpers';
+import Loading from './Common/Loading';
 
 const Details = ({ openNotification }) => {
   const { user } = useAuth();
@@ -24,11 +25,7 @@ const Details = ({ openNotification }) => {
   }, [user.token, location.state]);
 
   if (isLoading) {
-    return (
-      <div className="spinner-border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    );
+    return <Loading />;
   }
 
   return (
