@@ -94,108 +94,114 @@ const Register = ({ openNotification }) => {
   };
 
   return (
-    <form className="form register-form" onSubmit={submitHandler}>
-      <div className="mb-3">
-        <label htmlFor="email" className="form-label">
-          Email
-        </label>
-        <input
-          type="text"
-          className={
-            emailErr
-              ? 'error register-inputs form-control'
-              : 'register-inputs form-control'
-          }
-          id="email"
-          name="email"
-          onBlur={emailValidator}
-        />
-        {emailErr && <FormError message={'Valid email is required!'} />}
-      </div>
-
-      <div className="mb-3">
-        <label htmlFor="fullName" className="form-label">
-          Full name
-        </label>
-        <input
-          type="text"
-          className={
-            fullNameErr
-              ? 'error register-inputs form-control'
-              : 'register-inputs form-control'
-          }
-          id="fullName"
-          name="fullName"
-          onBlur={fullNameValidator}
-        />
-        {fullNameErr && (
-          <FormError message={'Full name must be at least 3 characters!'} />
-        )}
-      </div>
-
-      <div className="mb-3">
-        <label htmlFor="password" className="form-label">
-          Password
-        </label>
-        <input
-          type="password"
-          className={
-            passwordErr
-              ? 'error register-inputs form-control'
-              : 'register-inputs form-control'
-          }
-          id="password"
-          name="password"
-          onBlur={passwordValidator}
-        />
-        {passwordErr && <FormError message={'Password is required!'} />}
-      </div>
-
-      <div className="mb-3">
-        <label htmlFor="rePassword" className="form-label">
-          Repeat Password
-        </label>
-        <input
-          type="password"
-          className={
-            rePasswordErr
-              ? 'error register-inputs form-control'
-              : 'register-inputs form-control'
-          }
-          id="rePassword"
-          name="rePassword"
-          onBlur={rePasswordValidator}
-        />
-        {rePasswordErr && (
-          <FormError
-            message={'Repeat password must be identical to the password!'}
+    <div className="auth-container">
+      <form className="form register-form" onSubmit={submitHandler}>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
+          <input
+            type="text"
+            className={
+              emailErr
+                ? 'error register-inputs form-control'
+                : 'register-inputs form-control'
+            }
+            id="email"
+            name="email"
+            onBlur={emailValidator}
           />
-        )}
-      </div>
+          {emailErr && <FormError message={'Valid email is required!'} />}
+        </div>
 
-      <div className="mb-3">
-        <label htmlFor="role" className="form-label">
-          Role
-        </label>
-        <select id="role" className={'register-inputs form-select'} name="role">
-          <option value="employee">Employee</option>
-          <option value="hr">HR</option>
-        </select>
-      </div>
+        <div className="mb-3">
+          <label htmlFor="fullName" className="form-label">
+            Full name
+          </label>
+          <input
+            type="text"
+            className={
+              fullNameErr
+                ? 'error register-inputs form-control'
+                : 'register-inputs form-control'
+            }
+            id="fullName"
+            name="fullName"
+            onBlur={fullNameValidator}
+          />
+          {fullNameErr && (
+            <FormError message={'Full name must be at least 3 characters!'} />
+          )}
+        </div>
 
-      <div className="mt-5">
-        <p>
-          Already registered?&nbsp;
-          <Link to="/login" className="link">
-            <ion-icon name="arrow-round-back"></ion-icon>&nbsp;Login
-          </Link>
-        </p>
-      </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
+          <input
+            type="password"
+            className={
+              passwordErr
+                ? 'error register-inputs form-control'
+                : 'register-inputs form-control'
+            }
+            id="password"
+            name="password"
+            onBlur={passwordValidator}
+          />
+          {passwordErr && <FormError message={'Password is required!'} />}
+        </div>
 
-      <button type="submit" className="btn btn-primary mt-3">
-        Register
-      </button>
-    </form>
+        <div className="mb-3">
+          <label htmlFor="rePassword" className="form-label">
+            Repeat Password
+          </label>
+          <input
+            type="password"
+            className={
+              rePasswordErr
+                ? 'error register-inputs form-control'
+                : 'register-inputs form-control'
+            }
+            id="rePassword"
+            name="rePassword"
+            onBlur={rePasswordValidator}
+          />
+          {rePasswordErr && (
+            <FormError
+              message={'Repeat password must be identical to the password!'}
+            />
+          )}
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="role" className="form-label">
+            Role
+          </label>
+          <select
+            id="role"
+            className={'register-inputs form-select'}
+            name="role"
+          >
+            <option value="employee">Employee</option>
+            <option value="hr">HR</option>
+          </select>
+        </div>
+
+        <div className="mt-5">
+          <p>
+            Already registered?&nbsp;
+            <Link to="/login" className="link">
+              <ion-icon name="arrow-round-back"></ion-icon>&nbsp;Login
+            </Link>
+          </p>
+        </div>
+
+        <button type="submit" className="btn btn-primary mt-3">
+          Register
+        </button>
+      </form>
+    </div>
   );
 };
 

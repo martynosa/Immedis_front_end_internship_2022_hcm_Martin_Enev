@@ -63,56 +63,58 @@ const Login = ({ openNotification }) => {
   };
 
   return (
-    <form className="form login-form" onSubmit={submitHandler}>
-      <div className="mb-3">
-        <label htmlFor="email" className="form-label">
-          Email
-        </label>
-        <input
-          type="text"
-          className={
-            emailErr
-              ? 'error login-inputs form-control'
-              : 'login-inputs form-control'
-          }
-          id="email"
-          name="email"
-          onBlur={emailValidator}
-        />
-        {emailErr && <FormError message={'Valid email is required!'} />}
-      </div>
+    <div className="auth-container">
+      <form className="form login-form" onSubmit={submitHandler}>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
+          <input
+            type="text"
+            className={
+              emailErr
+                ? 'error login-inputs form-control'
+                : 'login-inputs form-control'
+            }
+            id="email"
+            name="email"
+            onBlur={emailValidator}
+          />
+          {emailErr && <FormError message={'Valid email is required!'} />}
+        </div>
 
-      <div className="mb-3">
-        <label htmlFor="password" className="form-label">
-          Password
-        </label>
-        <input
-          type="password"
-          className={
-            passwordErr
-              ? 'error login-inputs form-control'
-              : 'login-inputs form-control'
-          }
-          id="password"
-          name="password"
-          onBlur={passwordValidator}
-        />
-        {passwordErr && <FormError message={'Password is required!'} />}
-      </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
+          <input
+            type="password"
+            className={
+              passwordErr
+                ? 'error login-inputs form-control'
+                : 'login-inputs form-control'
+            }
+            id="password"
+            name="password"
+            onBlur={passwordValidator}
+          />
+          {passwordErr && <FormError message={'Password is required!'} />}
+        </div>
 
-      <div className="mb-3">
-        <p>
-          Don't have an account?&nbsp;
-          <Link to="/register" className="link">
-            Register&nbsp;<ion-icon name="arrow-round-forward"></ion-icon>
-          </Link>
-        </p>
-      </div>
+        <div className="mb-3">
+          <p>
+            Don't have an account?&nbsp;
+            <Link to="/register" className="link">
+              Register&nbsp;<ion-icon name="arrow-round-forward"></ion-icon>
+            </Link>
+          </p>
+        </div>
 
-      <button type="submit" className="btn btn-primary">
-        Login
-      </button>
-    </form>
+        <button type="submit" className="btn btn-primary">
+          Login
+        </button>
+      </form>
+    </div>
   );
 };
 

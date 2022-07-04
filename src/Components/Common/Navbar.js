@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import Styles from './Navbar.module.css';
 import { useAuth } from '../../AuthContext';
@@ -8,6 +8,18 @@ import { PHOTO_URL } from '../../services/constants';
 const Navbar = ({ openNotification }) => {
   const navigate = useNavigate();
   const { user, setUser, isAuth } = useAuth();
+
+  // testing
+  const location = useLocation();
+  if (location.pathname === '/') return;
+
+  if (location.pathname === '/login' || location.pathname === '/register') {
+    return (
+      <Link className={Styles.landingNav} to="/">
+        HR Management
+      </Link>
+    );
+  }
 
   const logoutHandler = () => {
     try {
@@ -80,9 +92,6 @@ const Navbar = ({ openNotification }) => {
   return (
     <nav className={`${Styles.myNav} navbar navbar-expand-lg`}>
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
-          HR Management
-        </Link>
         <button
           className="navbar-toggler"
           type="button"
