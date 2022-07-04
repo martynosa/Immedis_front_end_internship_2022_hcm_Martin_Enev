@@ -7,19 +7,8 @@ import { PHOTO_URL } from '../../services/constants';
 
 const Navbar = ({ openNotification }) => {
   const navigate = useNavigate();
-  const { user, setUser, isAuth } = useAuth();
-
-  // testing
   const location = useLocation();
-  if (location.pathname === '/') return;
-
-  if (location.pathname === '/login' || location.pathname === '/register') {
-    return (
-      <Link className={Styles.landingNav} to="/">
-        HR Management
-      </Link>
-    );
-  }
+  const { user, setUser } = useAuth();
 
   const logoutHandler = () => {
     try {
@@ -32,62 +21,16 @@ const Navbar = ({ openNotification }) => {
     }
   };
 
-  const userBtns = (
-    <>
-      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-        <li className="nav-item">
-          <Link className={`${Styles.links} nav-link`} to="/employees">
-            <ion-icon name="list"></ion-icon>
-            Employees
-          </Link>
-        </li>
+  if (location.pathname === '/') return;
 
-        <li className="nav-item">
-          <Link className={`${Styles.links} nav-link`} to="/profile">
-            <ion-icon name="person"></ion-icon>
-            Profile
-          </Link>
-        </li>
-      </ul>
-
-      <ul className={`${Styles.userBar} navbar-nav`}>
-        <li className={Styles.userInfo}>
-          <img
-            className={Styles.photo}
-            src={`${PHOTO_URL}/${user.photo}`}
-            alt="employee's mugshot"
-          ></img>
-          {user.fullName}
-        </li>
-        <li>
-          <span
-            className={`${Styles.logout} btn btn-danger btn-sm`}
-            onClick={logoutHandler}
-          >
-            Logout
-          </span>
-        </li>
-      </ul>
-    </>
-  );
-
-  const guestBtns = (
-    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-      <li className="nav-item">
-        <Link className={`${Styles.links} nav-link`} to="/login">
-          <ion-icon name="log-in"></ion-icon>
-          Login
-        </Link>
-      </li>
-
-      <li className="nav-item">
-        <Link className={`${Styles.links} nav-link`} to="/register">
-          <ion-icon name="person-add"></ion-icon>
-          Register
-        </Link>
-      </li>
-    </ul>
-  );
+  if (location.pathname === '/login' || location.pathname === '/register') {
+    return (
+      <Link className={Styles.landingNav} to="/">
+        <ion-icon name="arrow-back"></ion-icon>
+        HR Management
+      </Link>
+    );
+  }
 
   return (
     <nav className={`${Styles.myNav} navbar navbar-expand-lg`}>
@@ -104,8 +47,40 @@ const Navbar = ({ openNotification }) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          {isAuth && userBtns}
-          {!isAuth && guestBtns}
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <Link className={`${Styles.links} nav-link`} to="/employees">
+                <ion-icon name="list"></ion-icon>
+                Employees
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className={`${Styles.links} nav-link`} to="/profile">
+                <ion-icon name="person"></ion-icon>
+                Profile
+              </Link>
+            </li>
+          </ul>
+
+          <ul className={`${Styles.userBar} navbar-nav`}>
+            <li className={Styles.userInfo}>
+              <img
+                className={Styles.photo}
+                src={`${PHOTO_URL}/${user.photo}`}
+                alt="employee's mugshot"
+              ></img>
+              {user.fullName}
+            </li>
+            <li>
+              <span
+                className={`${Styles.logout} btn btn-danger btn-sm`}
+                onClick={logoutHandler}
+              >
+                Logout
+              </span>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>

@@ -4,7 +4,9 @@
 }
 
 .landingNav {
+  display: flex;
   position: absolute;
+  gap: 0.3rem;
   top: 30px;
   left: 30px;
   text-decoration: none;
