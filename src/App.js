@@ -10,6 +10,9 @@ import Register from './Components/Auth/Register';
 import Employees from './Components/Employees';
 import Details from './Components/Details';
 import Update from './Components/Update';
+import GuestGuard from './Guards/GuestGuard';
+import UserGuard from './Guards/UserGuard';
+import ErrorRoute from './Components/ErrorRoute';
 
 function App() {
   const [notificationSettings, setNotificationSettings] = useState({
@@ -33,30 +36,36 @@ function App() {
         status={notificationSettings.status}
         message={notificationSettings.message}
       />
+
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/landing" element={<Landing />} />
-        <Route
-          path="/login"
-          element={<Login openNotification={openNotification} />}
-        />
-        <Route
-          path="/register"
-          element={<Register openNotification={openNotification} />}
-        />
-        <Route
-          path="/profile"
-          element={<Details openNotification={openNotification} />}
-        />
-        <Route path="/employees" element={<Employees />} />
-        <Route
-          path="/employees/:id"
-          element={<Details openNotification={openNotification} />}
-        />
-        <Route
-          path="/employees/:id/update"
-          element={<Update openNotification={openNotification} />}
-        />
+        <Route element={<UserGuard />}>
+          <Route path="/" element={<Landing />} />
+          <Route
+            path="/login"
+            element={<Login openNotification={openNotification} />}
+          />
+          <Route
+            path="/register"
+            element={<Register openNotification={openNotification} />}
+          />
+        </Route>
+
+        <Route element={<GuestGuard />}>
+          <Route
+            path="/profile"
+            element={<Details openNotification={openNotification} />}
+          />
+          <Route path="/employees" element={<Employees />} />
+          <Route
+            path="/employees/:name"
+            element={<Details openNotification={openNotification} />}
+          />
+          <Route
+            path="/employees/:name/update"
+            element={<Update openNotification={openNotification} />}
+          />
+        </Route>
+        <Route path="*" element={<ErrorRoute />} />
       </Routes>
     </>
   );

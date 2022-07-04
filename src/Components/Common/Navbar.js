@@ -80,7 +80,7 @@ const Navbar = ({ openNotification }) => {
   return (
     <nav className={`${Styles.myNav} navbar navbar-expand-lg`}>
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/landing">
+        <Link className="navbar-brand" to="/">
           HR Management
         </Link>
         <button
