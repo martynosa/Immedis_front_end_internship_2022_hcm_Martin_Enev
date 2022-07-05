@@ -22,9 +22,9 @@ const Navbar = ({ openNotification }) => {
   };
 
   const landingNav = (
-    <nav className={Styles.landingNav}>
+    <nav className={Styles.outerNav}>
       <a
-        className={Styles.landingLink}
+        className={Styles.link}
         href="https://www.linkedin.com/in/martynosa/"
         target="_blank"
       >
@@ -32,7 +32,7 @@ const Navbar = ({ openNotification }) => {
         LinkedIn
       </a>
       <a
-        className={Styles.landingLink}
+        className={Styles.link}
         href="https://github.com/martynosa/"
         target="_blank"
       >
@@ -40,7 +40,7 @@ const Navbar = ({ openNotification }) => {
         Github
       </a>
       <a
-        className={Styles.landingLink}
+        className={Styles.link}
         href="https://martynosa-react-weather.netlify.app/"
         target="_blank"
       >
@@ -48,7 +48,7 @@ const Navbar = ({ openNotification }) => {
         Weather
       </a>
       <a
-        className={Styles.landingLink}
+        className={Styles.link}
         href="https://martynosa-sharingan.netlify.app/"
         target="_blank"
       >
@@ -59,8 +59,8 @@ const Navbar = ({ openNotification }) => {
   );
 
   const authNav = (
-    <nav className={Styles.landingNav}>
-      <Link className={`${Styles.landingLink} ${Styles.hrLink}`} to="/">
+    <nav className={Styles.outerNav}>
+      <Link className={`${Styles.link} ${Styles.hrLink}`} to="/">
         <ion-icon name="arrow-back"></ion-icon>
         Landing
       </Link>
@@ -68,7 +68,7 @@ const Navbar = ({ openNotification }) => {
   );
 
   const innerNav = (
-    <nav className={`${Styles.myNav} navbar navbar-expand-lg`}>
+    <nav className={`${Styles.innerNav} navbar navbar-expand-lg`}>
       <div className="container-fluid">
         <button
           className="navbar-toggler"
@@ -84,14 +84,14 @@ const Navbar = ({ openNotification }) => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className={`${Styles.links} nav-link`} to="/employees">
+              <Link className={`${Styles.link} nav-link`} to="/employees">
                 <ion-icon name="list"></ion-icon>
                 Employees
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link className={`${Styles.links} nav-link`} to="/profile">
+              <Link className={`${Styles.link} nav-link`} to="/profile">
                 <ion-icon name="person"></ion-icon>
                 Profile
               </Link>
