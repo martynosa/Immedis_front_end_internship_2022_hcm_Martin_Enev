@@ -4,18 +4,24 @@
 }
 
 .landingNav {
-  display: flex;
   position: absolute;
+  width: 100%;
+  padding: 1.2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.landingLink {
+  display: flex;
+  align-items: center;
   gap: 0.3rem;
-  top: 30px;
-  left: 30px;
   text-decoration: none;
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   color: #845ef7;
   font-weight: 500;
 }
 
-.landingNav:hover {
+.landingLink:hover {
   color: #845ef7;
 }
 

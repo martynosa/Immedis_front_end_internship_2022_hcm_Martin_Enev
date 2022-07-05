@@ -21,18 +21,53 @@ const Navbar = ({ openNotification }) => {
     }
   };
 
-  if (location.pathname === '/') return;
+  const landingNav = (
+    <nav className={Styles.landingNav}>
+      <a
+        className={Styles.landingLink}
+        href="https://www.linkedin.com/in/martynosa/"
+        target="_blank"
+      >
+        <ion-icon name="logo-linkedin"></ion-icon>
+        LinkedIn
+      </a>
+      <a
+        className={Styles.landingLink}
+        href="https://github.com/martynosa/"
+        target="_blank"
+      >
+        <ion-icon name="logo-github"></ion-icon>
+        Github
+      </a>
+      <a
+        className={Styles.landingLink}
+        href="https://martynosa-react-weather.netlify.app/"
+        target="_blank"
+      >
+        <ion-icon name="partly-sunny"></ion-icon>
+        Weather
+      </a>
+      <a
+        className={Styles.landingLink}
+        href="https://martynosa-sharingan.netlify.app/"
+        target="_blank"
+      >
+        <ion-icon name="eye"></ion-icon>
+        Sharingan
+      </a>
+    </nav>
+  );
 
-  if (location.pathname === '/login' || location.pathname === '/register') {
-    return (
-      <Link className={Styles.landingNav} to="/">
+  const authNav = (
+    <nav className={Styles.landingNav}>
+      <Link className={`${Styles.landingLink} ${Styles.hrLink}`} to="/">
         <ion-icon name="arrow-back"></ion-icon>
-        HR Management
+        Landing
       </Link>
-    );
-  }
+    </nav>
+  );
 
-  return (
+  const innerNav = (
     <nav className={`${Styles.myNav} navbar navbar-expand-lg`}>
       <div className="container-fluid">
         <button
@@ -85,6 +120,13 @@ const Navbar = ({ openNotification }) => {
       </div>
     </nav>
   );
+
+  if (location.pathname === '/') return landingNav;
+
+  if (location.pathname === '/login' || location.pathname === '/register')
+    return authNav;
+
+  return innerNav;
 };
 
 export default Navbar;
