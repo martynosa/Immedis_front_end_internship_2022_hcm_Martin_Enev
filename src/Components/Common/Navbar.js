@@ -27,6 +27,7 @@ const Navbar = ({ openNotification }) => {
         className={Styles.link}
         href="https://www.linkedin.com/in/martynosa/"
         target="_blank"
+        rel="noreferrer"
       >
         <ion-icon name="logo-linkedin"></ion-icon>
         LinkedIn
@@ -35,6 +36,7 @@ const Navbar = ({ openNotification }) => {
         className={Styles.link}
         href="https://github.com/martynosa/"
         target="_blank"
+        rel="noreferrer"
       >
         <ion-icon name="logo-github"></ion-icon>
         Github
@@ -43,6 +45,7 @@ const Navbar = ({ openNotification }) => {
         className={Styles.link}
         href="https://martynosa-react-weather.netlify.app/"
         target="_blank"
+        rel="noreferrer"
       >
         <ion-icon name="partly-sunny"></ion-icon>
         Weather
@@ -51,6 +54,7 @@ const Navbar = ({ openNotification }) => {
         className={Styles.link}
         href="https://martynosa-sharingan.netlify.app/"
         target="_blank"
+        rel="noreferrer"
       >
         <ion-icon name="eye"></ion-icon>
         Sharingan
