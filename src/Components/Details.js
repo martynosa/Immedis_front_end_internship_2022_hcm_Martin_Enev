@@ -17,6 +17,18 @@ const Details = ({ openNotification }) => {
   const [employee, setEmployee] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    const leaveRequest = {
+      message: formData.get('message'),
+      from: formData.get('from'),
+      to: formData.get('to'),
+    };
+    console.log(leaveRequest);
+  };
+
   useEffect(() => {
     getEmployee(user.token, location.state).then((empl) => {
       setEmployee(empl);
@@ -43,7 +55,8 @@ const Details = ({ openNotification }) => {
               Gender: {capitalizeFirstLetter(employee.gender)}
             </p>
             <p className="col-md-8 fs-4">
-              Birth date: {dateFixer(employee.birthDate)}
+              Birth date: {dateFixer(employee.birthDate)} (
+              {`${employee.yearsOld} years old`})
             </p>
             <p className="col-md-8 fs-4">Phone number: {employee.phone}</p>
             <p className="col-md-8 fs-4">Address: {employee.address}</p>
@@ -59,44 +72,62 @@ const Details = ({ openNotification }) => {
               <p>Department: {employee.department}</p>
               <p>Job title: {employee.jobTitle}</p>
               <p>Salary: {employee.salary} BGN</p>
+              <p>Remaining leave: {employee.remainingLeave} days</p>
             </div>
           </div>
+
           <div className="col-md-5">
             <div className="h-100 p-5 rounded-3">
               <h2 className="mb-3">Leave request</h2>
-              <div className="row">
-                <div className="col-sm-6">
-                  <label htmlFor="leaveFrom" className="form-label">
-                    From
-                  </label>
-                  <div className="input-group mb-3">
-                    <input
-                      type="date"
-                      className="form-control"
-                      id="leaveFrom"
-                      name="leaveFrom"
-                    />
+              <form onSubmit={onSubmitHandler}>
+                <div className="row">
+                  <div className="col-sm-6">
+                    <label htmlFor="from" className="form-label">
+                      From
+                    </label>
+                    <div className="input-group mb-3">
+                      <input
+                        type="date"
+                        className="form-control"
+                        id="from"
+                        name="from"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-sm-6">
+                    <label htmlFor="to" className="form-label">
+                      To
+                    </label>
+                    <div className="input-group mb-3">
+                      <input
+                        type="date"
+                        className="form-control"
+                        id="to"
+                        name="to"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-sm-12">
+                    <label htmlFor="message" className="form-label">
+                      Message
+                    </label>
+                    <div className="input-group mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="message"
+                        name="message"
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div className="col-sm-6">
-                  <label htmlFor="leaveTo" className="form-label">
-                    To
-                  </label>
-                  <div className="input-group mb-3">
-                    <input
-                      type="date"
-                      className="form-control"
-                      id="leaveTo"
-                      name="leaveTo"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <button className="btn btn-primary w-100 mt-5" type="button">
-                Submit
-              </button>
+                <button className="btn btn-primary w-100 mt-5" type="submit">
+                  Submit
+                </button>
+              </form>
             </div>
           </div>
         </div>

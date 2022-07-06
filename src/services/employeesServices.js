@@ -53,9 +53,9 @@ export const deleteEmployee = async (token, id) => {
   return result.data;
 };
 
-export const uploadPhoto = async (token, formData, id) => {
-  const request = await fetch(`${EMPLS_URL}/${id}/uploadPhoto`, {
-    method: 'POST',
+export const updateProfilePhoto = async (token, formData, id) => {
+  const request = await fetch(`${EMPLS_URL}/${id}/upp`, {
+    method: 'PUT',
     headers: {
       token: token,
     },

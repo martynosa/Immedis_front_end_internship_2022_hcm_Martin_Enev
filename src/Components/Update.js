@@ -7,7 +7,7 @@ import PageHeader from './Common/PageHeader';
 import {
   getEmployee,
   updateEmployee,
-  uploadPhoto,
+  updateProfilePhoto,
 } from '../services/employeesServices';
 import { defaultValueDate, slugify } from '../services/helpers';
 import FormError from './Common/FormError';
@@ -35,11 +35,11 @@ const Update = ({ openNotification }) => {
     setSalaryErr(salary < 0 || salary.length === 0);
   };
 
-  const uploadPhotoHandler = async (e) => {
+  const updateProfilePhotoHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     try {
-      const updatedEmployee = await uploadPhoto(
+      const updatedEmployee = await updateProfilePhoto(
         user.token,
         formData,
         location.state
@@ -142,7 +142,7 @@ const Update = ({ openNotification }) => {
         openNotification={openNotification}
       />
 
-      <form onSubmit={uploadPhotoHandler} className="mb-5">
+      <form onSubmit={updateProfilePhotoHandler} className="mb-5">
         <div className="row g-3">
           <div className="col-md-12">
             <label htmlFor="uploadPhoto" className="form-label">
