@@ -63,7 +63,7 @@ const LeaveRequestForm = ({
         setUser({ ...user, ...updatedEmployee });
       openNotification(
         'success',
-        `${updatedEmployee.fullName} updated successfully.`
+        `Leave request for ${updatedEmployee.fullName} submitted successfully.`
       );
     } catch (error) {
       openNotification('fail', error.message);
