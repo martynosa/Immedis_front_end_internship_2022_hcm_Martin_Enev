@@ -21,3 +21,8 @@ export const defaultValueDate = (date) => {
   if (!date) return;
   return date.split('T')[0];
 };
+
+export const leaveDaysCalc = (from, to) => {
+  const oneDay = 24 * 60 * 60 * 1000;
+  return (new Date(to) - new Date(from)) / oneDay;
+};

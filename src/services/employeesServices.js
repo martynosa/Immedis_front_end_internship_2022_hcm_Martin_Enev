@@ -65,3 +65,17 @@ export const updateProfilePhoto = async (token, formData, id) => {
   if (request.status === 500) throw result;
   return result.data;
 };
+
+export const updateLeaveRequest = async (token, formData, id) => {
+  const request = await fetch(`${EMPLS_URL}/${id}/lr`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      token: token,
+    },
+    body: JSON.stringify(formData),
+  });
+  const result = await request.json();
+  if (request.status === 500) throw result;
+  return result.data;
+};

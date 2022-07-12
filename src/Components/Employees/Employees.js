@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-import { useAuth } from '../AuthContext';
-import { getEmployees } from '../services/employeesServices';
-import PageTitle from './Common/PageTitle';
-import EmployeeCard from './Common/EmployeeCard';
-import Loading from './Common/Loading';
+import { useAuth } from '../../AuthContext';
+import { getEmployees } from '../../services/employeesServices';
+import PageTitle from '../Common/PageTitle';
+import EmployeeCard from './EmployeeCard';
+import Loading from '../Common/Loading';
 
 const Employees = () => {
   const { user } = useAuth();
