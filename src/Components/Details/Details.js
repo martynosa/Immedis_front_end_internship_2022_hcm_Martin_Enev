@@ -45,8 +45,8 @@ const Details = ({ openNotification }) => {
               Gender: {capitalizeFirstLetter(employee.gender)}
             </p>
             <p className="col-md-8 fs-5">
-              Birth date: {dateFixer(employee.birthDate)}
-              {employee.yearsOld && `${employee.yearsOld} years old`}
+              Birth date: {dateFixer(employee.birthDate)}&nbsp;
+              ({employee.yearsOld && `${employee.yearsOld} years old`})
             </p>
             <p className="col-md-8 fs-5">Phone number: {employee.phone}</p>
             <p className="col-md-8 fs-5">Address: {employee.address}</p>
