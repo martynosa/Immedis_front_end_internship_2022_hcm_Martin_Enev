@@ -46,7 +46,7 @@ const Details = ({ openNotification }) => {
             </p>
             <p className="col-md-8 fs-5">
               Birth date: {dateFixer(employee.birthDate)}&nbsp;
-              ({employee.yearsOld && `${employee.yearsOld} years old`})
+              {employee.yearsOld && `(${employee.yearsOld} years old)`}
             </p>
             <p className="col-md-8 fs-5">Phone number: {employee.phone}</p>
             <p className="col-md-8 fs-5">Address: {employee.address}</p>
@@ -81,7 +81,6 @@ const Details = ({ openNotification }) => {
             </div>
           </div>
         </div>
-
         <LeaveTable leaveRequests={employee.leaveRequests} />
       </div>
     </>

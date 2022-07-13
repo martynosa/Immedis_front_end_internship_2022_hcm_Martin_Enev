@@ -2,6 +2,14 @@ import React from 'react';
 import { dateFixer, leaveDaysCalc } from '../../../services/helpers';
 
 const LeaveRequestCell = ({ lr }) => {
+  const approveHandler = () => {
+    console.log('approved');
+  };
+
+  const rejectHandler = async () => {
+    console.log('rejected');
+  };
+
   return (
     <tr>
       <th scope="row">{lr.message}</th>
@@ -13,7 +21,24 @@ const LeaveRequestCell = ({ lr }) => {
         <td className="text-success">{lr.status}</td>
       )}
       {lr.status === 'rejected' && <td className="text-danger">{lr.status}</td>}
-      <td>actions</td>
+      <td>
+        <div className="btnGroup">
+          <button
+            type="button"
+            className="btn btn-outline-success btn-sm"
+            onClick={approveHandler}
+          >
+            Approve
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-danger btn-sm"
+            onClick={rejectHandler}
+          >
+            Reject
+          </button>
+        </div>
+      </td>
     </tr>
   );
 };

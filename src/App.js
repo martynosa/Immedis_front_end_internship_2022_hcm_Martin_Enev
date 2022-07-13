@@ -9,7 +9,7 @@ import Login from './Components/Auth/Login';
 import Register from './Components/Auth/Register';
 import Employees from './Components/Employees/Employees';
 import Details from './Components/Details/Details';
-import Update from './Components/Update';
+import Update from './Components/Update/Update';
 import GuestGuard from './Guards/GuestGuard';
 import UserGuard from './Guards/UserGuard';
 import ErrorRoute from './Components/ErrorRoute';

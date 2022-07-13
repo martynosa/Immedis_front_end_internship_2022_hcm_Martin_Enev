@@ -2,16 +2,13 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { useAuth } from '../AuthContext';
-import PageHeader from './Common/PageHeader';
-import {
-  getEmployee,
-  updateEmployee,
-  updateProfilePhoto,
-} from '../services/employeesServices';
-import { defaultValueDate, slugify } from '../services/helpers';
-import FormError from './Common/FormError';
-import Loading from './Common/Loading';
+import { useAuth } from '../../AuthContext';
+import PageHeader from '../Common/PageHeader';
+import { getEmployee, updateEmployee } from '../../services/employeesServices';
+import { defaultValueDate, slugify } from '../../services/helpers';
+import FormError from '../Common/FormError';
+import Loading from '../Common/Loading';
+import UpdateProfilePhotoForm from './UpdateProfilePhotoForm';
 
 const Update = ({ openNotification }) => {
   const { user, setUser } = useAuth();
@@ -33,27 +30,6 @@ const Update = ({ openNotification }) => {
   const salaryValidator = (e) => {
     const salary = e.target.value;
     setSalaryErr(salary < 0 || salary.length === 0);
-  };
-
-  const updateProfilePhotoHandler = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    try {
-      const updatedEmployee = await updateProfilePhoto(
-        user.token,
-        formData,
-        location.state
-      );
-      setEmployee(updatedEmployee);
-      if (user._id === updatedEmployee._id)
-        setUser({ ...user, ...updatedEmployee });
-      openNotification(
-        'success',
-        `${updatedEmployee.fullName} updated successfully.`
-      );
-    } catch (error) {
-      openNotification('fail', error.message);
-    }
   };
 
   const submitHandler = async (e) => {
@@ -142,26 +118,13 @@ const Update = ({ openNotification }) => {
         openNotification={openNotification}
       />
 
-      <form onSubmit={updateProfilePhotoHandler} className="mb-5">
-        <div className="row g-3">
-          <div className="col-md-12">
-            <label htmlFor="uploadPhoto" className="form-label">
-              Profile photo
-            </label>
-            <div className="input-group">
-              <input
-                type="file"
-                className="form-control"
-                id="uploadPhoto"
-                name="photo"
-              />
-              <button className="btn btn-outline-primary" type="submit">
-                Upload
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
+      <UpdateProfilePhotoForm
+        user={user}
+        setUser={setUser}
+        employee={employee}
+        setEmployee={setEmployee}
+        openNotification={openNotification}
+      />
 
       <form onSubmit={submitHandler}>
         <div className="row g-3">

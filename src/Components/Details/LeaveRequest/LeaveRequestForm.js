@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-import { updateLeaveRequest } from '../../../services/employeesServices';
+import { createLeaveRequest } from '../../../services/employeesServices';
 
 const LeaveRequestForm = ({
   openNotification,
@@ -53,7 +53,7 @@ const LeaveRequestForm = ({
     }
 
     try {
-      const updatedEmployee = await updateLeaveRequest(
+      const updatedEmployee = await createLeaveRequest(
         user.token,
         leaveRequest,
         employee._id

@@ -66,9 +66,9 @@ export const updateProfilePhoto = async (token, formData, id) => {
   return result.data;
 };
 
-export const updateLeaveRequest = async (token, formData, id) => {
+export const createLeaveRequest = async (token, formData, id) => {
   const request = await fetch(`${EMPLS_URL}/${id}/lr`, {
-    method: 'PUT',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       token: token,
