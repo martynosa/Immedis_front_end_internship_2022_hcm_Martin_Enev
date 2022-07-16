@@ -1,15 +1,7 @@
 import React from 'react';
 import { dateFixer, leaveDaysCalc } from '../../../services/helpers';
 
-const LeaveRequestCell = ({ lr }) => {
-  const approveHandler = () => {
-    console.log('approved');
-  };
-
-  const rejectHandler = async () => {
-    console.log('rejected');
-  };
-
+const LeaveRequestCell = ({ lr, approveHandler, rejectHandler }) => {
   return (
     <tr>
       <th scope="row">{lr.message}</th>

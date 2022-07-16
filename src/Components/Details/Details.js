@@ -34,9 +34,9 @@ const Details = ({ openNotification }) => {
     <>
       <div className="details-container py-4 mt-3">
         <PageHeader
+          openNotification={openNotification}
           user={user}
           employee={employee}
-          openNotification={openNotification}
         />
         <div className="rounded-3">
           <div className="container-fluid py-5">
@@ -81,7 +81,13 @@ const Details = ({ openNotification }) => {
             </div>
           </div>
         </div>
-        <LeaveTable leaveRequests={employee.leaveRequests} />
+        <LeaveTable
+          openNotification={openNotification}
+          user={user}
+          setUser={setUser}
+          employee={employee}
+          setEmployee={setEmployee}
+        />
       </div>
     </>
   );

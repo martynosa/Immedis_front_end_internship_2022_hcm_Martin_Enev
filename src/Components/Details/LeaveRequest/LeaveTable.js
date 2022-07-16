@@ -1,8 +1,46 @@
 import React from 'react';
+import { patchLeaveRequest } from '../../../services/leaveRequestServices';
 
 import LeaveRequestCell from './LeaveRequestCell';
 
-const LeaveTable = ({ leaveRequests }) => {
+const LeaveTable = ({
+  user,
+  setUser,
+  employee,
+  setEmployee,
+  openNotification,
+}) => {
+  const approveHandler = async (lr) => {
+    try {
+      const updatedEmployee = await patchLeaveRequest(user.token, {
+        _id: lr._id,
+        status: 'approved',
+      });
+      setEmployee(updatedEmployee);
+      if (user._id === updatedEmployee._id)
+        setUser({ ...user, ...updatedEmployee });
+      openNotification('success', `${lr.message} has been approved!`);
+    } catch (error) {
+      openNotification('fail', error.message);
+    }
+  };
+
+  const rejectHandler = async (lr) => {
+    try {
+      const updatedEmployee = await patchLeaveRequest(user.token, {
+        _id: lr._id,
+        status: 'rejected',
+      });
+      setEmployee(updatedEmployee);
+      if (user._id === updatedEmployee._id)
+        setUser({ ...user, ...updatedEmployee });
+      openNotification('fail', `${lr.message} has been rejected!`);
+      console.log(updatedEmployee);
+    } catch (error) {
+      openNotification('fail', error.message);
+    }
+  };
+
   const table = (
     <table className="table table-hover mb-5">
       <thead>
@@ -16,8 +54,13 @@ const LeaveTable = ({ leaveRequests }) => {
         </tr>
       </thead>
       <tbody>
-        {leaveRequests.map((lr) => (
-          <LeaveRequestCell key={lr._id} lr={lr} />
+        {employee.leaveRequests.map((lr) => (
+          <LeaveRequestCell
+            key={lr._id}
+            lr={lr}
+            approveHandler={() => approveHandler(lr)}
+            rejectHandler={() => rejectHandler(lr)}
+          />
         ))}
       </tbody>
     </table>
@@ -30,7 +73,7 @@ const LeaveTable = ({ leaveRequests }) => {
   return (
     <>
       <h2 className="mt-5 mb-3">Leave history</h2>
-      {leaveRequests.length > 0 ? table : emptyMessage}
+      {employee.leaveRequests.length > 0 ? table : emptyMessage}
     </>
   );
 };

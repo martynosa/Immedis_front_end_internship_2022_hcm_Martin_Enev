@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-import { createLeaveRequest } from '../../../services/employeesServices';
+import { createLeaveRequest } from '../../../services/leaveRequestServices';
 
 const LeaveRequestForm = ({
   openNotification,
@@ -26,6 +26,7 @@ const LeaveRequestForm = ({
       message: formData.get('message').trim(),
       from: formData.get('from'),
       to: formData.get('to'),
+      ownerId: employee._id,
     };
 
     let errorMessage = [];
@@ -35,7 +36,7 @@ const LeaveRequestForm = ({
       errorMessage.push('From and To dates are required');
     }
     if (
-      (new Date(leaveRequest.to) - new Date(leaveRequest.from)) / oneDay <=
+      (new Date(leaveRequest.to) - new Date(leaveRequest.from)) / oneDay <
       0
     ) {
       setDaysError(true);
