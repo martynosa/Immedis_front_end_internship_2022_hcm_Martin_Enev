@@ -24,7 +24,9 @@ const Update = ({ openNotification }) => {
   // validation
   const phoneValidator = (e) => {
     const phone = e.target.value;
-    setPhoneErr(phone.length !== 10 && phone.length !== 0);
+    setPhoneErr(
+      /\D/g.test(phone) || (phone.length !== 10 && phone.length !== 0)
+    );
   };
 
   const salaryValidator = (e) => {
@@ -61,7 +63,10 @@ const Update = ({ openNotification }) => {
     }
 
     let errorMessage = [];
-    if (newData.phone.length !== 10 && newData.phone.length !== 0) {
+    if (
+      /\D/g.test(newData.phone) ||
+      (newData.phone.length !== 10 && newData.phone.length !== 0)
+    ) {
       setPhoneErr(true);
       errorMessage.push('Phone must be 10 digits or empty');
     }

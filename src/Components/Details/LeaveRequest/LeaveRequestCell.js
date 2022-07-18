@@ -1,5 +1,5 @@
 import React from 'react';
-import { dateFixer, leaveDaysCalc } from '../../../services/helpers';
+import { dateFixer } from '../../../services/helpers';
 
 const LeaveRequestCell = ({ lr, approveHandler, rejectHandler }) => {
   return (
@@ -7,7 +7,7 @@ const LeaveRequestCell = ({ lr, approveHandler, rejectHandler }) => {
       <th scope="row">{lr.message}</th>
       <td>{dateFixer(lr.from)}</td>
       <td>{dateFixer(lr.to)}</td>
-      <td>{leaveDaysCalc(lr.from, lr.to)}</td>
+      <td>{lr.days}</td>
       {lr.status === 'pending' && <td className="text-warning">{lr.status}</td>}
       {lr.status === 'approved' && (
         <td className="text-success">{lr.status}</td>

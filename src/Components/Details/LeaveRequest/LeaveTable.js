@@ -35,7 +35,6 @@ const LeaveTable = ({
       if (user._id === updatedEmployee._id)
         setUser({ ...user, ...updatedEmployee });
       openNotification('fail', `${lr.message} has been rejected!`);
-      console.log(updatedEmployee);
     } catch (error) {
       openNotification('fail', error.message);
     }

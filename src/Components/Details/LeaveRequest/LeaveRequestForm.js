@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 
 import { createLeaveRequest } from '../../../services/leaveRequestServices';
+import { leaveDaysCalc } from '../../../services/helpers';
 
 const LeaveRequestForm = ({
   openNotification,
@@ -20,7 +21,6 @@ const LeaveRequestForm = ({
     setMessageError(false);
 
     const formData = new FormData(e.target);
-    const oneDay = 24 * 60 * 60 * 1000;
 
     const leaveRequest = {
       message: formData.get('message').trim(),
@@ -35,10 +35,7 @@ const LeaveRequestForm = ({
       setDaysError(true);
       errorMessage.push('From and To dates are required');
     }
-    if (
-      (new Date(leaveRequest.to) - new Date(leaveRequest.from)) / oneDay <
-      0
-    ) {
+    if (leaveDaysCalc(leaveRequest.from, leaveRequest.to) < 0) {
       setDaysError(true);
       errorMessage.push('Leave cannot be negative value');
     }
