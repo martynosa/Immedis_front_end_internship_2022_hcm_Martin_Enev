@@ -40,6 +40,14 @@ const LeaveRequestForm = ({
       errorMessage.push('Leave cannot be negative value');
     }
 
+    if (
+      leaveDaysCalc(leaveRequest.from, leaveRequest.to) >
+      employee.remainingLeave
+    ) {
+      setDaysError(true);
+      errorMessage.push('Not enough leave days remaining');
+    }
+
     if (leaveRequest.message.length === 0) {
       setMessageError(true);
       errorMessage.push('Message is required');

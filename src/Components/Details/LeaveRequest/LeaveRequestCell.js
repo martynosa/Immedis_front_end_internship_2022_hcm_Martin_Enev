@@ -1,7 +1,8 @@
 import React from 'react';
 import { dateFixer } from '../../../services/helpers';
 
-const LeaveRequestCell = ({ lr, approveHandler, rejectHandler }) => {
+const LeaveRequestCell = ({ lr, userRole, approveHandler, rejectHandler }) => {
+  console.log(userRole);
   return (
     <tr>
       <th scope="row">{lr.message}</th>
@@ -17,15 +18,17 @@ const LeaveRequestCell = ({ lr, approveHandler, rejectHandler }) => {
         <div className="btnGroup">
           <button
             type="button"
-            className="btn btn-outline-success btn-sm"
+            className="btn btn-success btn-sm"
             onClick={approveHandler}
+            disabled={lr.status !== 'pending' || userRole === 'employee'}
           >
             Approve
           </button>
           <button
             type="button"
-            className="btn btn-outline-danger btn-sm"
+            className="btn btn-danger btn-sm"
             onClick={rejectHandler}
+            disabled={lr.status !== 'pending' || userRole === 'employee'}
           >
             Reject
           </button>

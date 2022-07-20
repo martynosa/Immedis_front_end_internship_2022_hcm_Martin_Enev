@@ -59,6 +59,15 @@ const Navbar = ({ openNotification }) => {
         <ion-icon name="eye"></ion-icon>
         Sharingan
       </a>
+      <a
+        className={Styles.link}
+        href="https://martynosa-omnifood.netlify.app/"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <ion-icon name="pizza"></ion-icon>
+        Omnifood
+      </a>
     </nav>
   );
 

@@ -57,6 +57,7 @@ const LeaveTable = ({
           <LeaveRequestCell
             key={lr._id}
             lr={lr}
+            userRole={user.role}
             approveHandler={() => approveHandler(lr)}
             rejectHandler={() => rejectHandler(lr)}
           />
