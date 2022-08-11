@@ -26,7 +26,7 @@ const EmployeeCards = ({ empl }) => {
   return (
     <div
       className={
-        isMe ? `${Styles.hover} ${Styles.me} card` : `${Styles.hover} card`
+        isMe ? `${Styles.card} ${Styles.me} card` : `${Styles.card} card`
       }
       key={empl._id}
       onClick={navigateHandler}
