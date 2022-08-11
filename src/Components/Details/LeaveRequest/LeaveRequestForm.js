@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { createLeaveRequest } from '../../../services/leaveRequestServices';
 import { leaveDaysCalc } from '../../../services/helpers';
+import Button from '../../Common/Button';
 
 const LeaveRequestForm = ({
   openNotification,
@@ -13,6 +14,7 @@ const LeaveRequestForm = ({
 }) => {
   const [daysError, setDaysError] = useState(false);
   const [messageError, setMessageError] = useState(false);
+  const [isLoadingBtn, setIsLoadingBtn] = useState(false);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -59,6 +61,7 @@ const LeaveRequestForm = ({
     }
 
     try {
+      setIsLoadingBtn(true);
       const updatedEmployee = await createLeaveRequest(
         user.token,
         leaveRequest,
@@ -71,8 +74,10 @@ const LeaveRequestForm = ({
         'success',
         `Leave request for ${updatedEmployee.fullName} submitted successfully.`
       );
+      setIsLoadingBtn(false);
     } catch (error) {
       openNotification('fail', error.message);
+      setIsLoadingBtn(false);
     }
   };
 
@@ -122,9 +127,13 @@ const LeaveRequestForm = ({
         </div>
       </div>
 
-      <button className="btn btn-primary w-100 mt-3" type="submit">
-        Submit
-      </button>
+      <Button
+        isLoading={isLoadingBtn}
+        color={'primary'}
+        text={'Submit'}
+        type={'submit'}
+        addClass={'w-100 mt-3'}
+      />
     </form>
   );
 };

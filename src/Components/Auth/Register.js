@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { register } from '../../services/authServices';
 import { useAuth } from '../../AuthContext';
 import FormError from '../Common/FormError';
+import Button from '../Common/Button';
 
 const Register = ({ openNotification }) => {
   const navigate = useNavigate();
@@ -15,8 +16,8 @@ const Register = ({ openNotification }) => {
   const [fullNameErr, setFullNameErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
   const [rePasswordErr, setRePasswordErr] = useState(false);
-
   const [passToCompare, setPassToCompare] = useState('');
+  const [isLoadingBtn, setIsLoadingBtn] = useState(false);
 
   // validation
   const emailValidator = (e) => {
@@ -81,15 +82,17 @@ const Register = ({ openNotification }) => {
     }
 
     try {
+      setIsLoadingBtn(true);
       const registeredUser = await register(user);
       setUser(registeredUser);
       openNotification('success', `Welcome ${registeredUser.fullName}.`);
-      // this needs to be removed and page waiting approval shown
+      setIsLoadingBtn(false);
       registeredUser.role === 'hr'
         ? navigate('/employees')
         : navigate('/profile');
     } catch (error) {
       openNotification('fail', error);
+      setIsLoadingBtn(false);
     }
   };
 
@@ -197,9 +200,12 @@ const Register = ({ openNotification }) => {
           </p>
         </div>
 
-        <button type="submit" className="btn btn-primary mt-3">
-          Register
-        </button>
+        <Button
+          isLoading={isLoadingBtn}
+          color={'primary'}
+          text={'Register'}
+          type={'submit'}
+        />
       </form>
     </div>
   );

@@ -38,9 +38,9 @@ const EmployeeCards = ({ empl }) => {
       />
       <div className="card-body">
         <h5 className="card-title">{empl.fullName}</h5>
-        {(empl.department || empl.jobTitle) && (
+        {empl.jobTitle && (
           <ul className="list-group list-group-flush">
-            <li className="list-group-item">{empl.department}</li>
+            <li className="list-group-item">{empl.employmentType}</li>
             <li className="list-group-item">{empl.jobTitle}</li>
           </ul>
         )}

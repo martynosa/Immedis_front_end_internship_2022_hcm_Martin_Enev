@@ -88,7 +88,7 @@ body {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1.2rem;
+  gap: 1rem;
   justify-content: center;
   padding: 1.2rem;
 }
@@ -136,7 +136,20 @@ body {
   color: #845ef7;
 }
 
-.btnGroup {
+/* LEAVE REQUEST TABLE */
+.actions-button-group {
   display: flex;
   gap: 1rem;
+}
+
+.message-th {
+  max-width: 15rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.actions-td {
+  width: 25rem;
+  overflow: hidden;
+  white-space: nowrap;
 }

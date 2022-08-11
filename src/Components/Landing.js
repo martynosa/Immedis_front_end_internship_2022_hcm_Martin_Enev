@@ -9,13 +9,11 @@ const Landing = () => {
           HR management made <span className="easy">easy</span>
         </h1>
         <p className="text-center">
-          Modernize your HR. Manage your hiring, employee data, and time-offs.
+          Modernize your HR. Manage your hiring, employee data and time-offs.
         </p>
-        <div className="btnGroup">
-          <Link to="/login" className="btn btn-warning btn-lg mt-3">
-            Get started
-          </Link>
-        </div>
+        <Link to="/login" className="btn btn-warning btn-lg mt-3">
+          Get started
+        </Link>
       </div>
 
       <img

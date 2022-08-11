@@ -1,5 +1,8 @@
 import React from 'react';
+import { useState } from 'react';
+
 import { updateProfilePhoto } from '../../services/employeesServices';
+import Button from '../Common/Button';
 
 const UpdateProfilePhotoForm = ({
   user,
@@ -8,10 +11,13 @@ const UpdateProfilePhotoForm = ({
   setEmployee,
   openNotification,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const updateProfilePhotoHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     try {
+      setIsLoading(true);
       const updatedEmployee = await updateProfilePhoto(
         user.token,
         formData,
@@ -24,8 +30,10 @@ const UpdateProfilePhotoForm = ({
         'success',
         `${updatedEmployee.fullName} updated successfully.`
       );
+      setIsLoading(false);
     } catch (error) {
       openNotification('fail', error.message);
+      setIsLoading(false);
     }
   };
 
@@ -43,9 +51,13 @@ const UpdateProfilePhotoForm = ({
               id="uploadPhoto"
               name="photo"
             />
-            <button className="btn btn-outline-primary" type="submit">
-              Upload
-            </button>
+
+            <Button
+              isLoading={isLoading}
+              color={'primary'}
+              text={'Upload'}
+              type={'submit'}
+            />
           </div>
         </div>
       </div>

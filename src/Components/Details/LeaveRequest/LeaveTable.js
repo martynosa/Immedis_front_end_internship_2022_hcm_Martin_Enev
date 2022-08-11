@@ -1,5 +1,4 @@
 import React from 'react';
-import { patchLeaveRequest } from '../../../services/leaveRequestServices';
 
 import LeaveRequestCell from './LeaveRequestCell';
 
@@ -10,36 +9,6 @@ const LeaveTable = ({
   setEmployee,
   openNotification,
 }) => {
-  const approveHandler = async (lr) => {
-    try {
-      const updatedEmployee = await patchLeaveRequest(user.token, {
-        _id: lr._id,
-        status: 'approved',
-      });
-      setEmployee(updatedEmployee);
-      if (user._id === updatedEmployee._id)
-        setUser({ ...user, ...updatedEmployee });
-      openNotification('success', `${lr.message} has been approved!`);
-    } catch (error) {
-      openNotification('fail', error.message);
-    }
-  };
-
-  const rejectHandler = async (lr) => {
-    try {
-      const updatedEmployee = await patchLeaveRequest(user.token, {
-        _id: lr._id,
-        status: 'rejected',
-      });
-      setEmployee(updatedEmployee);
-      if (user._id === updatedEmployee._id)
-        setUser({ ...user, ...updatedEmployee });
-      openNotification('fail', `${lr.message} has been rejected!`);
-    } catch (error) {
-      openNotification('fail', error.message);
-    }
-  };
-
   const table = (
     <table className="table table-hover mb-5">
       <thead>
@@ -57,9 +26,10 @@ const LeaveTable = ({
           <LeaveRequestCell
             key={lr._id}
             lr={lr}
-            userRole={user.role}
-            approveHandler={() => approveHandler(lr)}
-            rejectHandler={() => rejectHandler(lr)}
+            user={user}
+            setUser={setUser}
+            setEmployee={setEmployee}
+            openNotification={openNotification}
           />
         ))}
       </tbody>

@@ -112,6 +112,11 @@ const Navbar = ({ openNotification }) => {
           </ul>
 
           <ul className={`${Styles.userBar} navbar-nav`}>
+            {user.role === 'hr' && (
+              <li>
+                <span className={Styles.hrStatus}>HR</span>
+              </li>
+            )}
             <li className={Styles.userInfo}>
               <img
                 className={Styles.photo}

@@ -49,6 +49,7 @@ const Details = ({ openNotification }) => {
               {employee.yearsOld && `(${employee.yearsOld} years old)`}
             </p>
             <p className="col-md-8 fs-5">Phone number: {employee.phone}</p>
+            <p className="col-md-8 fs-5">Email: {employee.email}</p>
             <p className="col-md-8 fs-5">Address: {employee.address}</p>
           </div>
         </div>
@@ -56,13 +57,16 @@ const Details = ({ openNotification }) => {
         <div className="row align-items-md-stretch">
           <div className="col-md-7">
             <div className="h-100 p-5 text-white bg-dark rounded-3">
-              <h2 className="mb-3">Employment</h2>
-              <p className="fs-5">Hired on: {dateFixer(employee.entryDate)}</p>
-              <p className="fs-5">Employment Type: {employee.employmentType}</p>
-              <p className="fs-5">Department: {employee.department}</p>
-              <p className="fs-5">Job title: {employee.jobTitle}</p>
-              <p className="fs-5">Salary: {employee.salary} BGN</p>
-              <p className="fs-5">
+              <h2 className="mb-5">Employment</h2>
+              <p className="fs-5 mb-3">
+                Hired on: {dateFixer(employee.entryDate)}
+              </p>
+              <p className="fs-5 mb-3">
+                Employment Type: {employee.employmentType}
+              </p>
+              <p className="fs-5 mb-3">Job title: {employee.jobTitle}</p>
+              <p className="fs-5 mb-3">Salary: {employee.salary} BGN</p>
+              <p className="fs-5 mb-3">
                 Remaining leave: {employee.remainingLeave} days
               </p>
             </div>

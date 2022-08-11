@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../services/authServices';
 import { useAuth } from '../../AuthContext';
 import FormError from '../Common/FormError';
+import Button from '../Common/Button';
 
 const Login = ({ openNotification }) => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const Login = ({ openNotification }) => {
 
   const [emailErr, setEmailErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
+  const [isLoadingBtn, setIsLoadingBtn] = useState(false);
 
   // validation
   const emailValidator = (e) => {
@@ -53,12 +55,15 @@ const Login = ({ openNotification }) => {
     }
 
     try {
+      setIsLoadingBtn(true);
       const loggedUser = await login(user);
       setUser(loggedUser);
       openNotification('success', `Welcome ${loggedUser.fullName}.`);
+      setIsLoadingBtn(false);
       loggedUser.role === 'hr' ? navigate('/employees') : navigate('/profile');
     } catch (error) {
       openNotification('fail', error);
+      setIsLoadingBtn(false);
     }
   };
 
@@ -110,9 +115,12 @@ const Login = ({ openNotification }) => {
           </p>
         </div>
 
-        <button type="submit" className="btn btn-primary">
-          Login
-        </button>
+        <Button
+          isLoading={isLoadingBtn}
+          color={'primary'}
+          text={'Login'}
+          type={'submit'}
+        />
       </form>
     </div>
   );

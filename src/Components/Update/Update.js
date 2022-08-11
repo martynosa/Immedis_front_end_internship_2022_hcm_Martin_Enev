@@ -9,6 +9,7 @@ import { defaultValueDate, slugify } from '../../services/helpers';
 import FormError from '../Common/FormError';
 import Loading from '../Common/Loading';
 import UpdateProfilePhotoForm from './UpdateProfilePhotoForm';
+import Button from '../Common/Button';
 
 const Update = ({ openNotification }) => {
   const { user, setUser } = useAuth();
@@ -16,10 +17,11 @@ const Update = ({ openNotification }) => {
   const location = useLocation();
 
   const [employee, setEmployee] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-
   const [salaryErr, setSalaryErr] = useState(false);
   const [phoneErr, setPhoneErr] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingBtn, setIsLoadingBtn] = useState(false);
 
   // validation
   const phoneValidator = (e) => {
@@ -56,7 +58,6 @@ const Update = ({ openNotification }) => {
         address: formData.get('address').trim(),
         entryDate: formData.get('entryDate'),
         employmentType: formData.get('employmentType'),
-        department: formData.get('department'),
         jobTitle: formData.get('jobTitle').trim(),
         salary: formData.get('salary').trim(),
       };
@@ -84,6 +85,7 @@ const Update = ({ openNotification }) => {
     }
 
     try {
+      setIsLoadingBtn(true);
       const updatedEmployee = await updateEmployee(
         user.token,
         location.state,
@@ -96,11 +98,13 @@ const Update = ({ openNotification }) => {
         'success',
         `${updatedEmployee.fullName} updated successfully.`
       );
+      setIsLoadingBtn(false);
       navigate(`/employees/${slugify(updatedEmployee.fullName)}`, {
         state: updatedEmployee._id,
       });
     } catch (error) {
       openNotification('fail', error.message);
+      setIsLoadingBtn(false);
     }
   };
 
@@ -211,7 +215,7 @@ const Update = ({ openNotification }) => {
             />
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-6">
             <label htmlFor="entryDate" className="form-label">
               Entry date
             </label>
@@ -227,7 +231,7 @@ const Update = ({ openNotification }) => {
             </div>
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-6">
             <label htmlFor="employmentType" className="form-label">
               Employment type
             </label>
@@ -241,24 +245,6 @@ const Update = ({ openNotification }) => {
               <option value="Full time">Full time</option>
               <option value="Intern">Intern</option>
               <option value="Part time">Part time</option>
-            </select>
-          </div>
-
-          <div className="col-md-4">
-            <label htmlFor="department" className="form-label">
-              Department
-            </label>
-            <select
-              className="form-select"
-              id="department"
-              name="department"
-              defaultValue={employee.department}
-              disabled={user.role !== 'hr'}
-            >
-              <option value="Management">Management</option>
-              <option value="Accounting">Accounting</option>
-              <option value="Sales">Sales</option>
-              <option value="IT">IT</option>
             </select>
           </div>
 
@@ -300,9 +286,13 @@ const Update = ({ openNotification }) => {
           </div>
         </div>
 
-        <button className="w-100 btn btn-primary btn-lg" type="submit">
-          Submit
-        </button>
+        <Button
+          isLoading={isLoadingBtn}
+          color={'primary'}
+          text={'Update'}
+          type={'submit'}
+          addClass={'w-100 btn-lg'}
+        />
       </form>
     </div>
   );

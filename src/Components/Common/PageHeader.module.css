@@ -19,7 +19,7 @@
 
 .btnGroup {
   display: flex;
-  gap: 0.3rem;
+  gap: 1rem;
 }
 
 .photo {
