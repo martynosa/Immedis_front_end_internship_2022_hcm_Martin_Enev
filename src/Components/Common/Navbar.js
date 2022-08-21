@@ -3,12 +3,14 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import Styles from './Navbar.module.css';
 import { useAuth } from '../../AuthContext';
+import { useNotification } from '../../NotificationContext';
 import { PHOTO_URL } from '../../services/constants';
 
-const Navbar = ({ openNotification }) => {
+const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, setUser } = useAuth();
+  const { openNotification } = useNotification();
 
   const logoutHandler = () => {
     try {

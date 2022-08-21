@@ -1,21 +1,24 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAuth } from '../../AuthContext';
+import { useNotification } from '../../NotificationContext';
 import PageHeader from '../Common/PageHeader';
 import { getEmployee, updateEmployee } from '../../services/employeesServices';
-import { defaultValueDate, slugify } from '../../services/helpers';
+import { defaultValueDate, extractId, slugify } from '../../services/helpers';
 import FormError from '../Common/FormError';
 import Loading from '../Common/Loading';
 import UpdateProfilePhotoForm from './UpdateProfilePhotoForm';
 import Button from '../Common/Button';
 
-const Update = ({ openNotification }) => {
+const Update = () => {
   const { user, setUser } = useAuth();
+  const { openNotification } = useNotification();
   const navigate = useNavigate();
-  const location = useLocation();
+  const params = useParams();
 
+  const employeeId = extractId(params.employee);
   const [employee, setEmployee] = useState({});
   const [salaryErr, setSalaryErr] = useState(false);
   const [phoneErr, setPhoneErr] = useState(false);
@@ -88,7 +91,7 @@ const Update = ({ openNotification }) => {
       setIsLoadingBtn(true);
       const updatedEmployee = await updateEmployee(
         user.token,
-        location.state,
+        employeeId,
         newData
       );
       setEmployee(updatedEmployee);
@@ -99,9 +102,9 @@ const Update = ({ openNotification }) => {
         `${updatedEmployee.fullName} updated successfully.`
       );
       setIsLoadingBtn(false);
-      navigate(`/employees/${slugify(updatedEmployee.fullName)}`, {
-        state: updatedEmployee._id,
-      });
+      navigate(
+        `/employees/${slugify(updatedEmployee.fullName)}-${updatedEmployee._id}`
+      );
     } catch (error) {
       openNotification('fail', error.message);
       setIsLoadingBtn(false);
@@ -109,11 +112,11 @@ const Update = ({ openNotification }) => {
   };
 
   useEffect(() => {
-    getEmployee(user.token, location.state).then((empl) => {
+    getEmployee(user.token, employeeId).then((empl) => {
       setEmployee(empl);
       setIsLoading(false);
     });
-  }, [user.token, location.state]);
+  }, [user.token, employeeId]);
 
   if (isLoading) {
     return <Loading />;
@@ -121,11 +124,7 @@ const Update = ({ openNotification }) => {
 
   return (
     <div className="container y-4 mt-3">
-      <PageHeader
-        user={user}
-        employee={employee}
-        openNotification={openNotification}
-      />
+      <PageHeader user={user} employee={employee} />
 
       <UpdateProfilePhotoForm
         user={user}

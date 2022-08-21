@@ -4,13 +4,15 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { register } from '../../services/authServices';
 import { useAuth } from '../../AuthContext';
+import { useNotification } from '../../NotificationContext';
 import FormError from '../Common/FormError';
 import Button from '../Common/Button';
 
-const Register = ({ openNotification }) => {
+const Register = () => {
   const navigate = useNavigate();
 
   const { setUser } = useAuth();
+  const { openNotification } = useNotification();
 
   const [emailErr, setEmailErr] = useState(false);
   const [fullNameErr, setFullNameErr] = useState(false);
@@ -181,11 +183,7 @@ const Register = ({ openNotification }) => {
           <label htmlFor="role" className="form-label">
             Role
           </label>
-          <select
-            id="role"
-            className={'register-inputs form-select'}
-            name="role"
-          >
+          <select id="role" className="register-inputs form-select" name="role">
             <option value="employee">Employee</option>
             <option value="hr">HR</option>
           </select>

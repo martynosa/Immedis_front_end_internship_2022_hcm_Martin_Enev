@@ -1,8 +1,13 @@
 import React from 'react';
 
 import Styles from './Notification.module.css';
+import { useNotification } from '../../NotificationContext';
 
-const Notification = ({ state, status, message }) => {
+const Notification = () => {
+  const { notificationSettings } = useNotification();
+
+  const { state, status, message } = notificationSettings;
+
   let classes = '';
   let icon = null;
 

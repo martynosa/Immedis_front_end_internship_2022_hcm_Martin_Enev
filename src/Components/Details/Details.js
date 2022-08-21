@@ -1,30 +1,40 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { useAuth } from '../../AuthContext';
+import { useNotification } from '../../NotificationContext';
 import PageHeader from '../Common/PageHeader';
 import { getEmployee } from '../../services/employeesServices';
-import { capitalizeFirstLetter, dateFixer } from '../../services/helpers';
+import {
+  capitalizeFirstLetter,
+  dateFixer,
+  extractId,
+} from '../../services/helpers';
 import Loading from '../Common/Loading';
 import LeaveRequestForm from './LeaveRequest/LeaveRequestForm';
 import LeaveTable from './LeaveRequest/LeaveTable';
 
-const Details = ({ openNotification }) => {
+const Details = () => {
   const { user, setUser } = useAuth();
+  const { openNotification } = useNotification();
+  const params = useParams();
   const location = useLocation();
 
-  if (location.pathname === '/profile') location.state = user._id;
-
+  let employeeId = null;
   const [employee, setEmployee] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
+  location.pathname === '/profile'
+    ? (employeeId = user._id)
+    : (employeeId = extractId(params.employee));
+
   useEffect(() => {
-    getEmployee(user.token, location.state).then((empl) => {
+    getEmployee(user.token, employeeId).then((empl) => {
       setEmployee(empl);
       setIsLoading(false);
     });
-  }, [user.token, location.state]);
+  }, [user.token, employeeId]);
 
   if (isLoading) {
     return <Loading />;
@@ -33,11 +43,7 @@ const Details = ({ openNotification }) => {
   return (
     <>
       <div className="details-container py-4 mt-3">
-        <PageHeader
-          openNotification={openNotification}
-          user={user}
-          employee={employee}
-        />
+        <PageHeader user={user} employee={employee} />
         <div className="rounded-3">
           <div className="container-fluid py-5">
             <h1 className="display-5 fw-bold mb-3">General</h1>

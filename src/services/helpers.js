@@ -26,3 +26,7 @@ export const leaveDaysCalc = (from, to) => {
   const oneDay = 24 * 60 * 60 * 1000;
   return (new Date(to) - new Date(from)) / oneDay + 1;
 };
+
+export const extractId = (params) => {
+  return params.split('-').at(-1);
+};

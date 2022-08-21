@@ -3,14 +3,17 @@ import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import { PHOTO_URL } from '../../services/constants';
+import { useNotification } from '../../NotificationContext';
 import { deleteEmployee } from '../../services/employeesServices';
 import { slugify } from '../../services/helpers';
 import Button from './Button';
 import Styles from './PageHeader.module.css';
 
-const PageHeader = ({ user, employee, openNotification }) => {
+const PageHeader = ({ user, employee }) => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { openNotification } = useNotification();
 
   const [isLoadingBtn, setIsLoadingBtn] = useState(false);
 
@@ -18,9 +21,7 @@ const PageHeader = ({ user, employee, openNotification }) => {
 
   const backHandler = () => {
     return fromUpdate
-      ? navigate(`/employees/${slugify(employee.fullName)}`, {
-          state: employee._id,
-        })
+      ? navigate(`/employees/${slugify(employee.fullName)}-${employee._id}`)
       : navigate('/employees');
   };
 
@@ -58,8 +59,9 @@ const PageHeader = ({ user, employee, openNotification }) => {
         {!fromUpdate && (
           <Link
             className="btn btn-primary"
-            to={`/employees/${slugify(employee.fullName)}/update`}
-            state={employee._id}
+            to={`/employees/${slugify(employee.fullName)}-${
+              employee._id
+            }/update`}
           >
             Update
           </Link>

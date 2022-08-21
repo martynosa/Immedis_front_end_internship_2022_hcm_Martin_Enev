@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Navbar from './Components/Common/Navbar';
@@ -15,55 +14,23 @@ import UserGuard from './Guards/UserGuard';
 import ErrorRoute from './Components/ErrorRoute';
 
 function App() {
-  const [notificationSettings, setNotificationSettings] = useState({
-    state: false,
-    status: 'fail',
-    message: '',
-  });
-
-  const openNotification = (status, message) => {
-    setNotificationSettings({ state: true, status, message });
-    setTimeout(() => {
-      setNotificationSettings({ state: false, status, message });
-    }, 2000);
-  };
-
   return (
     <>
-      <Navbar openNotification={openNotification} />
-      <Notification
-        state={notificationSettings.state}
-        status={notificationSettings.status}
-        message={notificationSettings.message}
-      />
+      <Navbar />
+      <Notification />
 
       <Routes>
         <Route element={<UserGuard />}>
           <Route path="/" element={<Landing />} />
-          <Route
-            path="/login"
-            element={<Login openNotification={openNotification} />}
-          />
-          <Route
-            path="/register"
-            element={<Register openNotification={openNotification} />}
-          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Route>
 
         <Route element={<GuestGuard />}>
-          <Route
-            path="/profile"
-            element={<Details openNotification={openNotification} />}
-          />
+          <Route path="/profile" element={<Details />} />
           <Route path="/employees" element={<Employees />} />
-          <Route
-            path="/employees/:name"
-            element={<Details openNotification={openNotification} />}
-          />
-          <Route
-            path="/employees/:name/update"
-            element={<Update openNotification={openNotification} />}
-          />
+          <Route path="/employees/:employee" element={<Details />} />
+          <Route path="/employees/:employee/update" element={<Update />} />
         </Route>
         <Route path="*" element={<ErrorRoute />} />
       </Routes>

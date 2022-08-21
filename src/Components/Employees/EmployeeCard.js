@@ -1,14 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useAuth } from '../../AuthContext';
 import { PHOTO_URL } from '../../services/constants';
 import { slugify, dateFixer } from '../../services/helpers';
 
 import Styles from './EmployeeCard.module.css';
 
-const EmployeeCards = ({ empl }) => {
-  const { user } = useAuth();
+const EmployeeCards = ({ empl, user }) => {
   const navigate = useNavigate();
 
   const isMe = user._id === empl._id;
@@ -18,9 +16,7 @@ const EmployeeCards = ({ empl }) => {
       if (!isMe) return;
     }
 
-    return navigate(`/employees/${slugify(empl.fullName)}`, {
-      state: empl._id,
-    });
+    return navigate(`/employees/${slugify(empl.fullName)}-${empl._id}`);
   };
 
   return (

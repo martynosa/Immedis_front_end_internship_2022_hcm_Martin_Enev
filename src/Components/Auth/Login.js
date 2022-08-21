@@ -4,13 +4,15 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { login } from '../../services/authServices';
 import { useAuth } from '../../AuthContext';
+import { useNotification } from '../../NotificationContext';
 import FormError from '../Common/FormError';
 import Button from '../Common/Button';
 
-const Login = ({ openNotification }) => {
+const Login = () => {
   const navigate = useNavigate();
 
   const { setUser } = useAuth();
+  const { openNotification } = useNotification();
 
   const [emailErr, setEmailErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
