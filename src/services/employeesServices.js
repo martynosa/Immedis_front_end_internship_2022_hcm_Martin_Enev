@@ -9,8 +9,10 @@ export const getEmployees = async (token) => {
     },
   });
   const result = await request.json();
-  if (request.status === 500) throw result;
-  return result.data;
+  if (request.status === 200) {
+    return result.data;
+  }
+  throw result;
 };
 
 export const getEmployee = async (token, id) => {
@@ -22,8 +24,10 @@ export const getEmployee = async (token, id) => {
     },
   });
   const result = await request.json();
-  if (request.status === 500) throw result;
-  return result.data;
+  if (request.status === 200) {
+    return result.data;
+  }
+  throw result;
 };
 
 export const updateEmployee = async (token, id, newData) => {
@@ -36,8 +40,10 @@ export const updateEmployee = async (token, id, newData) => {
     body: JSON.stringify(newData),
   });
   const result = await request.json();
-  if (request.status === 500) throw result;
-  return result.data;
+  if (request.status === 200) {
+    return result.data;
+  }
+  throw result;
 };
 
 export const deleteEmployee = async (token, id) => {
@@ -49,8 +55,10 @@ export const deleteEmployee = async (token, id) => {
     },
   });
   const result = await request.json();
-  if (request.status === 500) throw result;
-  return result.data;
+  if (request.status === 200) {
+    return result.data;
+  }
+  throw result;
 };
 
 export const updateProfilePhoto = async (token, formData, id) => {
@@ -62,6 +70,8 @@ export const updateProfilePhoto = async (token, formData, id) => {
     body: formData,
   });
   const result = await request.json();
-  if (request.status === 500) throw result;
-  return result.data;
+  if (request.status === 200) {
+    return result.data;
+  }
+  throw result;
 };

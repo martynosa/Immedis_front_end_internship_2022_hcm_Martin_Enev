@@ -10,8 +10,10 @@ export const createLeaveRequest = async (token, formData) => {
     body: JSON.stringify(formData),
   });
   const result = await request.json();
-  if (request.status === 500) throw result;
-  return result.data;
+  if (request.status === 200) {
+    return result.data;
+  }
+  throw result;
 };
 
 export const patchLeaveRequest = async (token, lr) => {
@@ -24,6 +26,8 @@ export const patchLeaveRequest = async (token, lr) => {
     body: JSON.stringify(lr),
   });
   const result = await request.json();
-  if (request.status === 500) throw result;
-  return result.data;
+  if (request.status === 200) {
+    return result.data;
+  }
+  throw result;
 };

@@ -9,9 +9,11 @@ export const login = async (user) => {
     body: JSON.stringify(user),
   });
   const result = await request.json();
-  if (request.status === 500) throw result.message;
-  localStorage.setItem('user', JSON.stringify(result.data));
-  return result.data;
+  if (request.status === 200) {
+    localStorage.setItem('user', JSON.stringify(result.data));
+    return result.data;
+  }
+  throw result.message;
 };
 
 export const register = async (user) => {
@@ -23,7 +25,9 @@ export const register = async (user) => {
     body: JSON.stringify(user),
   });
   const result = await request.json();
-  if (request.status === 500) throw result.message;
-  localStorage.setItem('user', JSON.stringify(result.data));
-  return result.data;
+  if (request.status === 200) {
+    localStorage.setItem('user', JSON.stringify(result.data));
+    return result.data;
+  }
+  throw result.message;
 };
